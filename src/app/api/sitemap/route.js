@@ -1,5 +1,5 @@
 export async function GET() {
-  const baseUrl = 'https://vaasu.com'; // Change to your actual domain
+  const baseUrl = 'https://vaasu-spiritual.vercel.app'; // Production URL
 
   const routes = [
     '',

@@ -26,11 +26,10 @@ Allow: /_next/static/
 Allow: /public/
 
 # Sitemap location
-Sitemap: https://vaasu.com/sitemap.xml
-Sitemap: https://vaasu.com/sitemap-mobile.xml
+Sitemap: https://vaasu-spiritual.vercel.app/api/sitemap
 
 # Request rate (in seconds)
 Request-rate: 1/1s
 
 # Comment: Vaasu spiritual content platform
-# For more information, visit https://vaasu.com
+# For more information, visit https://vaasu-spiritual.vercel.app

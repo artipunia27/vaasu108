@@ -7,7 +7,7 @@ const organizationSchema = {
   "@type": "Organization",
   name: "Vaasu",
   description: "Premium spiritual platform for Bhajans, Shlokas, Mantras, and sacred wisdom",
-  url: "https://vaasu.com",
+  url: "https://vaasu-spiritual.vercel.app",
   logo: "https://vaasu.com/logo.png",
   sameAs: ["https://facebook.com/vaasu", "https://twitter.com/vaasu"],
   address: {
@@ -25,12 +25,12 @@ const webSiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "Vaasu",
-  url: "https://vaasu.com",
+  url: "https://vaasu-spiritual.vercel.app",
   potentialAction: {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: "https://vaasu.com/search?q={search_term_string}"
+      urlTemplate: "https://vaasu-spiritual.vercel.app/bhajans?search={search_term_string}"
     },
     query_input: {
       "@type": "PropertyValueSpecification",
@@ -46,20 +46,20 @@ export const metadata = {
   
   // Canonical
   alternates: {
-    canonical: 'https://vaasu.com',
+    canonical: 'https://vaasu-spiritual.vercel.app',
   },
 
   // Open Graph (Social Media)
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://vaasu.com',
+    url: 'https://vaasu-spiritual.vercel.app',
     site_name: 'Vaasu',
     title: 'Vaasu | Daily Bhajans, Shlokas & Spiritual Books',
     description: 'Discover sacred Bhajans, meaningful Shlokas, Mantras, and spiritual wisdom. Your gateway to daily spiritual growth.',
     images: [
       {
-        url: 'https://vaasu.com/og-image.png',
+        url: 'https://vaasu-spiritual.vercel.app/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Vaasu - Spiritual Content Platform',
@@ -74,7 +74,7 @@ export const metadata = {
     creator: '@vaasu_spiritual',
     title: 'Vaasu | Daily Bhajans & Shlokas',
     description: 'Discover sacred devotional content and spiritual wisdom',
-    images: ['https://vaasu.com/twitter-image.png'],
+    images: ['https://vaasu-spiritual.vercel.app/twitter-image.png'],
   },
 
   // Additional Meta Tags
@@ -101,7 +101,7 @@ export const metadata = {
 
   // Verification
   verification: {
-    google: 'google-site-verification-code',
+    google: 'YOUR_GOOGLE_SITE_VERIFICATION_CODE',
   },
 
   icons: {
