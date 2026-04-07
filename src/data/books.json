@@ -1,0 +1,22 @@
+[
+  {
+    "id": "bhagavad-gita",
+    "title": "Shrimad Bhagavad Gita",
+    "author": "Veda Vyasa",
+    "description": "The divine song of God, imparted by Lord Krishna to Arjuna on the battlefield of Kurukshetra.",
+    "chapters": [
+      {
+        "chapter_number": 1,
+        "title": "Arjuna Visada Yoga",
+        "description": "The Yoga of the Despondency of Arjuna",
+        "verses": 47
+      },
+      {
+        "chapter_number": 2,
+        "title": "Sankhya Yoga",
+        "description": "The Yoga of Knowledge",
+        "verses": 72
+      }
+    ]
+  }
+]

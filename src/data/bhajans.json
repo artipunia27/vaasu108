@@ -1,0 +1,44 @@
+[
+  {
+    "id": "achyutam-keshavam",
+    "title_english": "Achyutam Keshavam",
+    "title_hindi": "अच्युतम केशवं",
+    "deity": "Krishna",
+    "type": "Bhajan",
+    "lyrics_hindi": [
+      "अच्युतम केशवं कृष्ण दामोदरं",
+      "राम नारायणं जानकी वल्लभं",
+      "कौन कहता है भगवान आते नहीं",
+      "तुम मीरा के जैसे बुलाते नहीं"
+    ],
+    "lyrics_english": [
+      "Achyutam Keshavam Krishna Damodaram",
+      "Rama Narayanam Janaki Vallabham",
+      "Kaun Kehta Hai Bhagwaan Aate Nahi",
+      "Tum Meera Ke Jaise Bulate Nahi"
+    ],
+    "description": "A beautiful bhajan dedicated to Lord Krishna, describing his divine forms."
+  },
+  {
+    "id": "hanuman-chalisa",
+    "title_english": "Hanuman Chalisa",
+    "title_hindi": "हनुमान चालीसा",
+    "deity": "Hanuman",
+    "type": "Chalisa",
+    "lyrics_hindi": [
+      "दोहा",
+      "श्रीगुरु चरन सरोज रज निज मन मुकुरु सुधारि",
+      "बरनउँ रघुबर बिमल जसु जो दायकु फल चारि",
+      "बुद्धिहीन तनु जानिके सुमिरौं पवन-कुमार",
+      "बल बुद्धि बिद्या देहु मोहिं हरहु कलेस बिकार"
+    ],
+    "lyrics_english": [
+      "Doha",
+      "Shri Guru Charan Saroj Raj Nij Man Mukur Sudhari",
+      "Barnau Raghubar Bimal Jasu Jo Dayaku Phal Chari",
+      "Buddhihin Tanu Janike Sumirau Pavan Kumar",
+      "Bal Buddhi Vidya Dehu Mohin Harahu Kalesh Bikaar"
+    ],
+    "description": "The famous 40-verse prayer dedicated to Lord Hanuman, composed by Tulsidas."
+  }
+]
