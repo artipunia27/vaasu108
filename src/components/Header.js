@@ -1,9 +1,27 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [isHidden, setIsHidden] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScroll = window.scrollY || window.pageYOffset;
+      if (currentScroll > lastScrollY.current && currentScroll > 100) {
+        setIsHidden(true);
+      } else {
+        setIsHidden(false);
+      }
+      lastScrollY.current = currentScroll;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -13,7 +31,7 @@ export default function Header() {
   };
 
   return (
-    <header className="header">
+    <header className={`header ${isHidden ? 'header-hidden' : ''}`}>
       <div className="header-content">
         <div className="logo" style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
           <svg width="46" height="46" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{filter: 'drop-shadow(0px 4px 8px rgba(255, 107, 53, 0.3))', animation: 'glow 3s ease-in-out infinite'}}>
@@ -29,13 +47,21 @@ export default function Header() {
           </svg>
           <a href="/" className="logo-text" style={{textDecoration: 'none'}}>Vaasu</a>
         </div>
-        <nav className="nav-links">
-          <a href="/" className="nav-link">Home</a>
-          <a href="/bhajans" className="nav-link">Bhajans</a>
-          <a href="/books" className="nav-link">Spiritual Books</a>
-          <a href="/darshan" className="nav-link">Daily Darshan</a>
-          <a href="/prayer" className="nav-link">Prayer Requests</a>
-          <a href="/meditation" className="nav-link">Meditation</a>
+        <button
+          type="button"
+          className={`menu-toggle ${menuOpen ? 'active' : ''}`}
+          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          onClick={() => setMenuOpen((prev) => !prev)}
+        >
+          ☰
+        </button>
+        <nav className={`nav-links ${menuOpen ? 'open' : ''}`}>
+          <a href="/" className="nav-link" onClick={() => setMenuOpen(false)}>Home</a>
+          <a href="/bhajans" className="nav-link" onClick={() => setMenuOpen(false)}>Bhajans</a>
+          <a href="/books" className="nav-link" onClick={() => setMenuOpen(false)}>Spiritual Books</a>
+          <a href="/darshan" className="nav-link" onClick={() => setMenuOpen(false)}>Daily Darshan</a>
+          <a href="/prayer" className="nav-link" onClick={() => setMenuOpen(false)}>Prayer Requests</a>
+          <a href="/meditation" className="nav-link" onClick={() => setMenuOpen(false)}>Meditation</a>
         </nav>
         <form className="search-bar" onSubmit={handleSearch}>
           <input

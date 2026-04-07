@@ -114,24 +114,24 @@ export default function Home() {
       <section style={{marginBottom: '80px'}}>
         <h2 style={{textAlign: 'center', marginBottom: '40px'}}>📚 Sacred Spiritual Books</h2>
         
-        <div className="card" style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'center'}}>
-          <div>
-            <h3 style={{fontSize: '28px', marginBottom: '16px'}}>Shrimad Bhagavad Gita</h3>
-            <p style={{marginBottom: '16px', color: 'var(--text-light)', fontSize: '16px'}}>
-              The most sacred and widely read spiritual text in Hinduism. A philosophical dialogue between Lord Krishna and Arjuna on the battlefield of Kurukshetra.
+        <div className="card book-section-grid">
+          <div className="books-copy">
+            <h3>Shrimad Bhagavad Gita</h3>
+            <p>
+              This sacred dialogue between Lord Krishna and Arjuna teaches duty, devotion, and inner peace.
             </p>
-            <p style={{marginBottom: '16px', color: 'var(--text-light)', fontSize: '16px'}}>
-              <strong>Key Teachings:</strong> Dharma (duty), Karma Yoga, Bhakti Yoga, and the path to spiritual liberation. Contains 18 chapters and 700 verses of profound wisdom.
+            <p>
+              <strong>Key teachings:</strong> Dharma, Karma Yoga, Bhakti, and the path to spiritual freedom.
             </p>
-            <p style={{marginBottom: '24px', color: 'var(--text-light)', fontSize: '16px'}}>
-              <strong>Benefits:</strong> Guidance for life, stress relief, spiritual growth, and understanding your purpose.
+            <p>
+              <strong>Benefits:</strong> calmer mind, clear purpose, and deeper spiritual understanding.
             </p>
             <a href="/books" className="btn">Explore Full Library</a>
           </div>
-          <div style={{background: 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)', borderRadius: 'var(--radius)', padding: '40px', color: 'var(--text-color)', textAlign: 'center'}}>
-            <h4 style={{fontSize: '28px', marginBottom: '16px', color: 'var(--text-color)'}}>18 Chapters</h4>
-            <p style={{marginBottom: '12px', fontSize: '16px'}}>700 Verses</p>
-            <p style={{fontSize: '14px'}}><em>"Yoga is the journey of the self, through the self, to the self."</em></p>
+          <div className="books-highlight">
+            <h4>18 Chapters</h4>
+            <p>700 Verses</p>
+            <p><em>"Yoga is the journey of the self, through the self, to the self."</em></p>
           </div>
         </div>
       </section>

@@ -44,9 +44,14 @@ export const metadata = {
   title: "Vaasu | Daily Bhajans, Shlokas & Spiritual Books | Devotional Content",
   description: "Discover sacred Bhajans, meaningful Shlokas with translations, Mantras, Aarti, and spiritual wisdom from Bhagavad Gita. Your gateway to daily spiritual growth.",
   
-  // Canonical
+  // Canonical and URL base
+  metadataBase: new URL('https://vaasu-spiritual.vercel.app'),
   alternates: {
     canonical: 'https://vaasu-spiritual.vercel.app',
+    languages: {
+      'en': 'https://vaasu-spiritual.vercel.app',
+      'hi': 'https://vaasu-spiritual.vercel.app/hi',
+    },
   },
 
   // Open Graph (Social Media)
@@ -101,7 +106,7 @@ export const metadata = {
 
   // Verification
   verification: {
-    google: 'YOUR_GOOGLE_SITE_VERIFICATION_CODE',
+    google: 'ES6DCeFzxlulDecqWBci08BXplx9ilrNdzuTjUJbOgk',
   },
 
   icons: {
@@ -119,6 +124,7 @@ export default function RootLayout({ children }) {
         
         {/* Google Fonts */}
         <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Lora:wght@400;600&display=swap" rel="stylesheet" />
+        <meta name="google-site-verification" content="ES6DCeFzxlulDecqWBci08BXplx9ilrNdzuTjUJbOgk" />
         
         {/* FAQ Schema */}
         <script
