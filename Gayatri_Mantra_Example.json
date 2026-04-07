@@ -1,0 +1,20 @@
+{
+  "id": "gayatri-mantra",
+  "title_english": "Gayatri Mantra",
+  "title_hindi": "गायत्री मंत्र",
+  "deity": "Sun God",
+  "type": "Mantra",
+  "lyrics_hindi": [
+    "ॐ भूर्भुवः स्वः",
+    "तत्सवितुर्वरेण्यं",
+    "भर्गो देवस्य धीमहि",
+    "धियो यो नः प्रचोदयात्"
+  ],
+  "lyrics_english": [
+    "Om Bhur Bhuva Svaha",
+    "Tat Savitur Varenyam",
+    "Bhargo Devasya Dhimahi",
+    "Dhiyo Yo Nah Prachodayat"
+  ],
+  "description": "The most sacred mantra in Hinduism, a prayer to the Sun God for wisdom and enlightenment."
+}

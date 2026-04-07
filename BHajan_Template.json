@@ -1,0 +1,18 @@
+{
+  "id": "your-bhajan-id",
+  "title_english": "Bhajan Title in English",
+  "title_hindi": "भजन का हिंदी नाम",
+  "deity": "God Name (Krishna, Shiva, Durga, etc.)",
+  "type": "Bhajan/Chalisa/Aarti/Stuti",
+  "lyrics_hindi": [
+    "पहली पंक्ति हिंदी में",
+    "दूसरी पंक्ति हिंदी में",
+    "तीसरी पंक्ति हिंदी में"
+  ],
+  "lyrics_english": [
+    "First line in English",
+    "Second line in English",
+    "Third line in English"
+  ],
+  "description": "Brief description of the bhajan and its significance."
+}
