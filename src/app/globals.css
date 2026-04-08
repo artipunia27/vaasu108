@@ -488,6 +488,23 @@ main {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 32px;
   margin-bottom: 60px;
+  align-items: stretch;
+}
+
+.daily-section > a {
+  display: block;
+  height: 100%;
+}
+
+.daily-section .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.daily-section .card p {
+  flex: 1;
 }
 
 /* ============================================
@@ -743,15 +760,24 @@ main {
   }
 
   .search-bar {
-    display: none;
-    width: 100%;
-    margin-left: 0;
-    justify-content: center;
+    display: flex;
+    width: auto;
+    margin-left: 8px;
+    justify-content: flex-end;
+    flex: 0 1 auto;
+    gap: 4px;
   }
 
   .search-input {
-    width: 100%;
-    max-width: 100%;
+    width: 120px;
+    max-width: 120px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .search-btn {
+    font-size: 16px;
+    padding: 6px 8px;
   }
 
   .nav-link {
@@ -894,13 +920,6 @@ main {
 
   .shloka-meaning {
     font-size: 14px;
-  }
-}
-
-/* Tablet and above - show search bar */
-@media (min-width: 769px) {
-  .search-bar {
-    display: flex !important;
   }
 }
 
