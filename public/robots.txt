@@ -1,35 +1,9 @@
-# Vaasu Website - Robots.txt for Search Engine Crawlers
-
-# Allow all crawlers by default
+# *
 User-agent: *
 Allow: /
 
-# Specific rules for Google
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 0
+# Host
+Host: https://vaasu108.vercel.app/
 
-# Specific rules for Bing
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-# Disallow crawling of unnecessary directories
-Disallow: /api/
-Disallow: /admin/
-Disallow: /*.json$
-Disallow: /_next/
-Disallow: /private/
-
-# Allow crawling of important assets
-Allow: /_next/static/
-Allow: /public/
-
-# Sitemap location
-Sitemap: https://vaasu-spiritual.vercel.app/api/sitemap
-
-# Request rate (in seconds)
-Request-rate: 1/1s
-
-# Comment: Vaasu spiritual content platform
-# For more information, visit https://vaasu-spiritual.vercel.app
+# Sitemaps
+Sitemap: https://vaasu108.vercel.app/sitemap.xml

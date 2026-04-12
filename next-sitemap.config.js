@@ -1,4 +1,4 @@
 module.exports = {
-  siteUrl: 'https://vaasu108.vercel.app/',
+  siteUrl: 'https://vaasu-spiritual.vercel.app/',
   generateRobotsTxt: true,
 };
