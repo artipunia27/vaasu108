@@ -10,7 +10,19 @@ export const metadata = {
   },
 };
 
+export const revalidate = 86400; // Revalidate daily
+
+import shlokasData from "../data/shlokas.json";
+import bhajansData from "../data/bhajans.json";
+
 export default function Home() {
+  // Get a stable index for the current day
+  const dayOfYear = Math.floor(Date.now() / 86400000);
+  const dailyShloka = shlokasData[dayOfYear % shlokasData.length];
+  
+  // For the daily bhajan, we use a different offset so they don't sync up exactly
+  const dailyBhajan = bhajansData[(dayOfYear + 5) % bhajansData.length];
+
   const bhajans = [
     { 
       id: 1,
@@ -77,14 +89,13 @@ export default function Home() {
             <div style={{color: 'var(--primary)', marginBottom: '20px', fontSize: '14px', textTransform: 'uppercase', fontWeight: '700', letterSpacing: '2px'}}>
               ✦ Aaj Ka Shloka (Today's Verse) ✦
             </div>
-            <div className="shloka-text">
-              कर्मण्येवाधिकारस्ते <br/>
-              मा फलेषु कदाचन।
+            <div className="shloka-text" style={{whiteSpace: 'pre-line'}}>
+              {dailyShloka.hindi}
             </div>
             <div className="shloka-meaning">
-              <strong>"You have the right to work, but never to its fruits."</strong>
+              <strong>"{dailyShloka.meaning_english}"</strong>
               <p style={{marginTop: '12px', fontStyle: 'italic', color: '#1C1C1C'}}>
-                From Bhagavad Gita (2.47) - Lord Krishna teaches Arjuna about Karma Yoga, emphasizing performing one's duty without attachment to results. This is the foundation of righteous action in Hindu philosophy.
+                From {dailyShloka.source} {dailyShloka.chapter && `(${dailyShloka.chapter}.${dailyShloka.verse})`}
               </p>
             </div>
             <a href="/bhajans" className="btn" style={{marginTop: '20px'}}>Read More Shlokas</a>
@@ -95,17 +106,16 @@ export default function Home() {
             <div style={{color: 'var(--accent)', marginBottom: '20px', fontSize: '14px', textTransform: 'uppercase', fontWeight: '700', letterSpacing: '2px'}}>
               ✦ Bhajan Recommendation ✦
             </div>
-            <h3 style={{fontSize: '32px', marginBottom: '12px', color: 'var(--primary)'}}>Achyutam Keshavam</h3>
+            <h3 style={{fontSize: '32px', marginBottom: '12px', color: 'var(--primary)'}}>{dailyBhajan.title_english}</h3>
             <p style={{color: 'var(--text-light)', marginBottom: '20px', fontSize: '16px', lineHeight: '1.8'}}>
-              A soul-stirring bhajan dedicated to Lord Krishna. This devotional masterpiece celebrates Krishna's divine forms including Achyuta (infallible), Keshava (one with beautiful hair), and Damodara (bound with rope in childhood).
+              {dailyBhajan.description}
             </p>
             <strong style={{display: 'block', marginBottom: '8px', color: 'var(--secondary)'}}>About this Bhajan:</strong>
             <ul style={{marginLeft: '20px', marginBottom: '20px', lineHeight: '1.8'}}>
-              <li>Type: Traditional Devotional Bhajan</li>
-              <li>Deity: Lord Krishna</li>
-              <li>Perfect for: Meditation and devotional practice</li>
+              <li>Deity: {dailyBhajan.deity}</li>
+              <li>Perfect for: Daily meditation and devotion</li>
             </ul>
-            <a href="/bhajans/achyutam-keshavam" className="btn">Listen & Read Full Lyrics</a>
+            <a href={`/bhajans/${dailyBhajan.id}`} className="btn">Listen & Read Full Lyrics</a>
           </div>
         </div>
       </section>
@@ -146,7 +156,7 @@ export default function Home() {
         <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px'}}>
           {bhajans.map((bhajan) => (
             <div key={bhajan.id} className="card" style={{display: 'flex', flexDirection: 'column'}}>
-              <h4 style={{fontSize: '22px', marginBottom: '8px'}}>{bhajan.name}</h4>
+              <h3 style={{fontSize: '22px', marginBottom: '8px'}}>{bhajan.name}</h3>
               <p style={{color: 'var(--primary)', fontWeight: '600', marginBottom: '12px', fontSize: '14px'}}>
                 {bhajan.deity}
               </p>
@@ -154,7 +164,7 @@ export default function Home() {
                 {bhajan.description}
               </p>
               <a href={`/bhajans/${bhajan.id}`} className="btn" style={{alignSelf: 'flex-start'}}>
-                Learn More
+                Read {bhajan.name}
               </a>
             </div>
           ))}
@@ -195,7 +205,7 @@ export default function Home() {
           ].map((item, idx) => (
             <div key={idx} className="card" style={{textAlign: 'center'}}>
               <div style={{fontSize: '48px', marginBottom: '16px'}}>{item.icon}</div>
-              <h4 style={{fontSize: '20px', marginBottom: '12px'}}>{item.title}</h4>
+              <h3 style={{fontSize: '20px', marginBottom: '12px'}}>{item.title}</h3>
               <p style={{color: 'var(--text-light)', fontSize: '14px'}}>{item.desc}</p>
             </div>
           ))}

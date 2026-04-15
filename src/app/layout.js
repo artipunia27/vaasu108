@@ -202,7 +202,7 @@ export default function RootLayout({ children }) {
               <div className="footer-section">
                 <h3>Support</h3>
                 <ul>
-                  <li><a href="/prayer">Prayer Requests</a></li>
+                  <li><a href="/community">Community Bhajans</a></li>
                   <li><a href="/meditation">Meditation</a></li>
                   <li><a href="/donate" style={{color: 'var(--accent)', fontWeight: '600'}}>🙏 Donate</a></li>
                 </ul>

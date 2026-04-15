@@ -60,7 +60,7 @@ export default function Header() {
           <a href="/bhajans" className="nav-link" onClick={() => setMenuOpen(false)}>Bhajans</a>
           <a href="/books" className="nav-link" onClick={() => setMenuOpen(false)}>Spiritual Books</a>
           <a href="/darshan" className="nav-link" onClick={() => setMenuOpen(false)}>Daily Darshan</a>
-          <a href="/prayer" className="nav-link" onClick={() => setMenuOpen(false)}>Prayer Requests</a>
+          <a href="/community" className="nav-link" onClick={() => setMenuOpen(false)}>Community Bhajans</a>
           <a href="/meditation" className="nav-link" onClick={() => setMenuOpen(false)}>Meditation</a>
         </nav>
         <form className="search-bar" onSubmit={handleSearch}>
@@ -71,7 +71,7 @@ export default function Header() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <button type="submit" className="search-btn">🔍</button>
+          <button type="submit" className="search-btn" aria-label="Search">🔍</button>
         </form>
       </div>
     </header>

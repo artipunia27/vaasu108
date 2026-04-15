@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Bhajan {
+  id        Int       @id @default(autoincrement())
+  title     String
+  content   String    @db.Text
+  author    String
+  ownerId   String
+  likes     Int       @default(0)
+  createdAt DateTime  @default(now())
+  comments  Comment[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  text      String   @db.Text
+  author    String
+  ownerId   String
+  createdAt DateTime @default(now())
+  
+  bhajanId  Int
+  bhajan    Bhajan   @relation(fields: [bhajanId], references: [id], onDelete: Cascade)
+}

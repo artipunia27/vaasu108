@@ -7,16 +7,20 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "add-content": "node scripts/add-content.js"
   },
   "dependencies": {
+    "@prisma/client": "^7.7.0",
     "next": "^16.2.3",
     "next-sitemap": "^4.2.3",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "dotenv": "^17.4.2",
     "eslint": "^9",
-    "eslint-config-next": "16.2.2"
+    "eslint-config-next": "16.2.2",
+    "prisma": "^7.7.0"
   }
 }
