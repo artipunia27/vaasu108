@@ -44,15 +44,8 @@ export const metadata = {
   title: "Vaasu | Daily Bhajans, Shlokas & Spiritual Books | Devotional Content",
   description: "Discover sacred Bhajans, meaningful Shlokas with translations, Mantras, Aarti, and spiritual wisdom from Bhagavad Gita. Your gateway to daily spiritual growth.",
   
-  // Canonical and URL base
+  // URL base used for generating absolute metadata URLs
   metadataBase: new URL('https://vaasu108.vercel.app'),
-  alternates: {
-    canonical: 'https://vaasu108.vercel.app',
-    languages: {
-      'en': 'https://vaasu108.vercel.app',
-      'hi': 'https://vaasu108.vercel.app/hi',
-    },
-  },
 
   // Open Graph (Social Media)
   openGraph: {
