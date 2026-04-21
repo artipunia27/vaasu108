@@ -1,8 +1,11 @@
-import bhajansData from '../../../data/bhajans.json';
-import booksData from '../../../data/books.json';
+import { getBhajansContent, getBooksContent } from '../../../lib/content-store';
 
 export async function GET() {
-  const baseUrl = 'https://vaasu-spiritual.vercel.app'; // Production URL
+  const baseUrl = 'https://vaasu108.vercel.app';
+  const [bhajansData, booksData] = await Promise.all([
+    getBhajansContent(),
+    getBooksContent(),
+  ]);
 
   const staticRoutes = [
     '',
@@ -10,10 +13,9 @@ export async function GET() {
     '/books',
     '/darshan',
     '/meditation',
-    '/prayer',
-    '/donate',
     '/privacy',
     '/terms',
+    '/community',
   ];
 
   const dynamicRoutes = [

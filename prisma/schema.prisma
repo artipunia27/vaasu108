@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Bhajan {
@@ -26,4 +27,52 @@ model Comment {
   
   bhajanId  Int
   bhajan    Bhajan   @relation(fields: [bhajanId], references: [id], onDelete: Cascade)
+}
+
+model SpiritualBhajan {
+  id            String   @id
+  titleEnglish  String
+  titleHindi    String
+  deity         String
+  type          String
+  lyricsHindi   String[]
+  lyricsEnglish String[]
+  description   String   @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model SpiritualBook {
+  id          String            @id
+  title       String
+  author      String
+  description String            @db.Text
+  chapters    SpiritualChapter[]
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+}
+
+model SpiritualChapter {
+  id            Int           @id @default(autoincrement())
+  chapterNumber Int
+  title         String
+  description   String        @db.Text
+  verses        Int
+  bookId        String
+  book          SpiritualBook @relation(fields: [bookId], references: [id], onDelete: Cascade)
+
+  @@index([bookId, chapterNumber])
+}
+
+model SpiritualShloka {
+  id                    String   @id
+  source                String
+  chapter               Int
+  verse                 Int
+  hindi                 String   @db.Text
+  englishTransliteration String  @db.Text
+  meaningEnglish        String   @db.Text
+  meaningHindi          String   @db.Text
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
 }

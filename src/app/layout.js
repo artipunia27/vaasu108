@@ -7,8 +7,8 @@ const organizationSchema = {
   "@type": "Organization",
   name: "Vaasu",
   description: "Premium spiritual platform for Bhajans, Shlokas, Mantras, and sacred wisdom",
-  url: "https://vaasu-spiritual.vercel.app",
-  logo: "https://vaasu.com/logo.png",
+  url: "https://vaasu108.vercel.app",
+  logo: "https://vaasu108.vercel.app/logo.png",
   sameAs: ["https://facebook.com/vaasu", "https://twitter.com/vaasu"],
   address: {
     "@type": "PostalAddress",
@@ -25,12 +25,12 @@ const webSiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "Vaasu",
-  url: "https://vaasu-spiritual.vercel.app",
+  url: "https://vaasu108.vercel.app",
   potentialAction: {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: "https://vaasu-spiritual.vercel.app/bhajans?search={search_term_string}"
+      urlTemplate: "https://vaasu108.vercel.app/bhajans?search={search_term_string}"
     },
     query_input: {
       "@type": "PropertyValueSpecification",
@@ -45,12 +45,12 @@ export const metadata = {
   description: "Discover sacred Bhajans, meaningful Shlokas with translations, Mantras, Aarti, and spiritual wisdom from Bhagavad Gita. Your gateway to daily spiritual growth.",
   
   // Canonical and URL base
-  metadataBase: new URL('https://vaasu-spiritual.vercel.app'),
+  metadataBase: new URL('https://vaasu108.vercel.app'),
   alternates: {
-    canonical: 'https://vaasu-spiritual.vercel.app',
+    canonical: 'https://vaasu108.vercel.app',
     languages: {
-      'en': 'https://vaasu-spiritual.vercel.app',
-      'hi': 'https://vaasu-spiritual.vercel.app/hi',
+      'en': 'https://vaasu108.vercel.app',
+      'hi': 'https://vaasu108.vercel.app/hi',
     },
   },
 
@@ -58,13 +58,13 @@ export const metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://vaasu-spiritual.vercel.app',
+    url: 'https://vaasu108.vercel.app',
     site_name: 'Vaasu',
     title: 'Vaasu | Daily Bhajans, Shlokas & Spiritual Books',
     description: 'Discover sacred Bhajans, meaningful Shlokas, Mantras, and spiritual wisdom. Your gateway to daily spiritual growth.',
     images: [
       {
-        url: 'https://vaasu-spiritual.vercel.app/og-image.png',
+        url: 'https://vaasu108.vercel.app/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Vaasu - Spiritual Content Platform',
@@ -79,7 +79,7 @@ export const metadata = {
     creator: '@vaasu_spiritual',
     title: 'Vaasu | Daily Bhajans & Shlokas',
     description: 'Discover sacred devotional content and spiritual wisdom',
-    images: ['https://vaasu-spiritual.vercel.app/twitter-image.png'],
+    images: ['https://vaasu108.vercel.app/twitter-image.png'],
   },
 
   // Additional Meta Tags
@@ -89,21 +89,6 @@ export const metadata = {
   
   robots: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
   
-  // Language
-  alternates: {
-    languages: {
-      'en': 'https://vaasu.com',
-      'hi': 'https://vaasu.com/hi',
-    },
-  },
-
-  // Mobile
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
-  },
-
   // Verification
   verification: {
     google: 'ES6DCeFzxlulDecqWBci08BXplx9ilrNdzuTjUJbOgk',
@@ -112,6 +97,12 @@ export const metadata = {
   icons: {
     icon: '/favicon.ico',
   },
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({ children }) {
@@ -203,8 +194,8 @@ export default function RootLayout({ children }) {
                 <h3>Support</h3>
                 <ul>
                   <li><a href="/community">Community Bhajans</a></li>
+                  <li><a href="/books">Spiritual Books</a></li>
                   <li><a href="/meditation">Meditation</a></li>
-                  <li><a href="/donate" style={{color: 'var(--accent)', fontWeight: '600'}}>🙏 Donate</a></li>
                 </ul>
               </div>
               <div className="footer-section">

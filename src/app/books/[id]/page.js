@@ -1,8 +1,8 @@
-import booksData from "../../../data/books.json";
+import { getBookById } from "../../../lib/content-store";
 
 export default async function BookDetails({ params }) {
   const { id } = await params;
-  const book = booksData.find(b => b.id === id);
+  const book = await getBookById(id);
 
   if (!book) {
     return (

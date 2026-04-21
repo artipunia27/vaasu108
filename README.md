@@ -20,6 +20,60 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Content Admin Panel
+
+You can now add/update spiritual content directly from the browser.
+
+1. Set an admin token in your environment:
+
+```env
+CONTENT_ADMIN_TOKEN=your-strong-secret
+```
+
+If you want to use the admin panel on your live domain, also set:
+
+```env
+CONTENT_ADMIN_ENABLE_REMOTE=true
+CONTENT_ADMIN_ALLOWED_HOSTS=your-domain.com,www.your-domain.com
+```
+
+Keep `CONTENT_ADMIN_ENABLE_REMOTE` unset or `false` to restrict admin to localhost only.
+
+2. Ensure Prisma tables are synced:
+
+```bash
+npx prisma db push
+```
+
+3. Open the admin page:
+
+```text
+/admin
+/admin/content
+/admin-ramanju-portal
+```
+
+From this page, you can add or update:
+- Bhajans
+- Spiritual books and chapters
+- Shlokas
+
+Public pages automatically read DB content first and keep JSON content as fallback.
+
+## Live Update Notes
+
+- Admin panel edits update your database, not Git files.
+- For live updates, make sure your deployed app has the correct production `DATABASE_URL`.
+- If your live data is not changing, confirm the above environment variables are set in your hosting dashboard and redeploy once.
+
+If you edited content locally earlier and want those exact changes on live quickly:
+
+```bash
+npm run export-db-json
+```
+
+Then commit/push the updated JSON files in `src/data/` and redeploy.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

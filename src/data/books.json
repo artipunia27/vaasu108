@@ -1,5 +1,45 @@
 [
   {
+    "id": "shiva-purana",
+    "title": "Shiva Purana",
+    "author": "Ancient Sage Tradition",
+    "description": "A sacred text centered on Lord Shiva, his cosmic dance, forms, and blessings for devotees.",
+    "chapters": [
+      {
+        "chapter_number": 1,
+        "title": "Shiva Mahatmya",
+        "description": "The glory and compassion of Mahadev and his divine presence.",
+        "verses": 240
+      },
+      {
+        "chapter_number": 2,
+        "title": "Rudra Samhita",
+        "description": "Stories and teachings about Shiva's cosmic power and grace.",
+        "verses": 180
+      }
+    ]
+  },
+  {
+    "id": "ramayana",
+    "title": "Sri Ramayana",
+    "author": "Maharishi Valmiki",
+    "description": "The great epic of Lord Rama, Sita, Lakshman, and Hanuman, teaching dharma, courage, and devotion.",
+    "chapters": [
+      {
+        "chapter_number": 1,
+        "title": "Bala Kanda",
+        "description": "The divine beginnings, including Rama's birth and early life.",
+        "verses": 500
+      },
+      {
+        "chapter_number": 2,
+        "title": "Ayodhya Kanda",
+        "description": "The noble events of exile, sacrifice, and royal duty.",
+        "verses": 300
+      }
+    ]
+  },
+  {
     "id": "bhagavad-gita",
     "title": "Shrimad Bhagavad Gita",
     "author": "Veda Vyasa",

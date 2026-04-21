@@ -5,62 +5,35 @@ export const metadata = {
   openGraph: {
     title: "Vaasu | Daily Bhajans & Spiritual Wisdom",
     description: "Explore sacred devotional content, spiritual books, and divine mantras.",
-    url: "https://vaasu.com",
+    url: "https://vaasu108.vercel.app",
     type: "website",
   },
 };
 
 export const revalidate = 86400; // Revalidate daily
 
-import shlokasData from "../data/shlokas.json";
-import bhajansData from "../data/bhajans.json";
+import { getBhajansContent, getBooksContent, getShlokasContent } from "../lib/content-store";
 
-export default function Home() {
-  // Get a stable index for the current day
-  const dayOfYear = Math.floor(Date.now() / 86400000);
-  const dailyShloka = shlokasData[dayOfYear % shlokasData.length];
-  
-  // For the daily bhajan, we use a different offset so they don't sync up exactly
-  const dailyBhajan = bhajansData[(dayOfYear + 5) % bhajansData.length];
+export default async function Home() {
+  const [shlokasData, bhajansData, booksData] = await Promise.all([
+    getShlokasContent(),
+    getBhajansContent(),
+    getBooksContent(),
+  ]);
 
-  const bhajans = [
-    { 
-      id: 1,
-      name: 'Hanuman Chalisa', 
-      deity: 'Lord Hanuman',
-      description: 'A powerful 40-verse devotional hymn praising Lord Hanuman'
-    },
-    { 
-      id: 2,
-      name: 'Achyutam Keshavam', 
-      deity: 'Lord Krishna',
-      description: 'A melodious bhajan dedicated to Lord Krishna and his divine forms'
-    },
-    { 
-      id: 3,
-      name: 'Shree Krishna Govind', 
-      deity: 'Lord Krishna',
-      description: 'A soothing devotional composition celebrating Krishna\'s divine nature'
-    },
-    { 
-      id: 4,
-      name: 'Aigiri Nandini', 
-      deity: 'Goddess Durga',
-      description: 'An energetic hymn honoring Goddess Durga\'s divine power'
-    },
-    { 
-      id: 5,
-      name: 'Gayatri Mantra', 
-      deity: 'Sun God',
-      description: 'The most sacred mantra in Hinduism, praising the Sun deity'
-    },
-    { 
-      id: 6,
-      name: 'Om Namah Shivaya', 
-      deity: 'Lord Shiva',
-      description: 'A powerful mantra for meditation and spiritual awakening'
+  const dayIndex = Math.floor(Date.now() / 86400000);
+  const pickDailyItem = (items, offset = 0) => {
+    if (!items.length) {
+      return null;
     }
-  ];
+
+    return items[(dayIndex + offset) % items.length];
+  };
+
+  const dailyShloka = pickDailyItem(shlokasData, 0);
+  const dailyBhajan = pickDailyItem(bhajansData, 5);
+  const dailyBook = pickDailyItem(booksData, 2);
+  const featuredBhajans = bhajansData;
 
   return (
     <>
@@ -90,12 +63,12 @@ export default function Home() {
               ✦ Aaj Ka Shloka (Today's Verse) ✦
             </div>
             <div className="shloka-text" style={{whiteSpace: 'pre-line'}}>
-              {dailyShloka.hindi}
+              {dailyShloka?.hindi}
             </div>
             <div className="shloka-meaning">
-              <strong>"{dailyShloka.meaning_english}"</strong>
+              <strong>"{dailyShloka?.meaning_english}"</strong>
               <p style={{marginTop: '12px', fontStyle: 'italic', color: '#1C1C1C'}}>
-                From {dailyShloka.source} {dailyShloka.chapter && `(${dailyShloka.chapter}.${dailyShloka.verse})`}
+                From {dailyShloka?.source} {dailyShloka?.chapter && `(${dailyShloka.chapter}.${dailyShloka.verse})`}
               </p>
             </div>
             <a href="/bhajans" className="btn" style={{marginTop: '20px'}}>Read More Shlokas</a>
@@ -117,6 +90,23 @@ export default function Home() {
             </ul>
             <a href={`/bhajans/${dailyBhajan.id}`} className="btn">Listen & Read Full Lyrics</a>
           </div>
+
+          {/* Daily Spiritual Book Card */}
+          <div className="card" style={{background: 'linear-gradient(135deg, #FFF9F2 0%, #FDF2E3 100%)', border: '3px solid var(--primary-light)'}}>
+            <div style={{color: 'var(--primary)', marginBottom: '20px', fontSize: '14px', textTransform: 'uppercase', fontWeight: '700', letterSpacing: '2px'}}>
+              ✦ Daily Sacred Book ✦
+            </div>
+            <h3 style={{fontSize: '32px', marginBottom: '12px', color: 'var(--secondary)'}}>{dailyBook?.title}</h3>
+            <p style={{color: 'var(--text-light)', marginBottom: '20px', fontSize: '16px', lineHeight: '1.8'}}>
+              {dailyBook?.description}
+            </p>
+            <strong style={{display: 'block', marginBottom: '8px', color: 'var(--secondary)'}}>Book snapshot:</strong>
+            <ul style={{marginLeft: '20px', marginBottom: '20px', lineHeight: '1.8'}}>
+              <li>Author: {dailyBook?.author}</li>
+              <li>Chapters available: {dailyBook?.chapters?.length ?? 0}</li>
+            </ul>
+            <a href={`/books/${dailyBook?.id}`} className="btn btn-secondary">Explore Today's Book</a>
+          </div>
         </div>
       </section>
 
@@ -126,22 +116,22 @@ export default function Home() {
         
         <div className="card book-section-grid">
           <div className="books-copy">
-            <h3>Shrimad Bhagavad Gita</h3>
+            <h3>{dailyBook?.title}</h3>
             <p>
-              This sacred dialogue between Lord Krishna and Arjuna teaches duty, devotion, and inner peace.
+              {dailyBook?.description}
             </p>
             <p>
-              <strong>Key teachings:</strong> Dharma, Karma Yoga, Bhakti, and the path to spiritual freedom.
+              <strong>Author:</strong> {dailyBook?.author}
             </p>
             <p>
-              <strong>Benefits:</strong> calmer mind, clear purpose, and deeper spiritual understanding.
+              <strong>Chapters:</strong> {dailyBook?.chapters?.length ?? 0} sacred chapters available for study.
             </p>
             <a href="/books" className="btn">Explore Full Library</a>
           </div>
           <div className="books-highlight">
-            <h4>18 Chapters</h4>
-            <p>700 Verses</p>
-            <p><em>"Yoga is the journey of the self, through the self, to the self."</em></p>
+            <h4>{dailyBook?.chapters?.length ?? 0} Chapters</h4>
+            <p>{dailyBook?.chapters?.reduce((total, chapter) => total + chapter.verses, 0) ?? 0} Verses</p>
+            <p><em>"Read a little each day. Let scripture shape the mind before the world does."</em></p>
           </div>
         </div>
       </section>
@@ -154,17 +144,20 @@ export default function Home() {
         </p>
         
         <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px'}}>
-          {bhajans.map((bhajan) => (
+          {featuredBhajans.map((bhajan) => (
             <div key={bhajan.id} className="card" style={{display: 'flex', flexDirection: 'column'}}>
-              <h3 style={{fontSize: '22px', marginBottom: '8px'}}>{bhajan.name}</h3>
+              <div style={{fontSize: '13px', color: 'var(--primary)', fontWeight: '700', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '10px'}}>
+                {bhajan.deity} • {bhajan.type}
+              </div>
+              <h3 style={{fontSize: '22px', marginBottom: '8px'}}>{bhajan.title_english}</h3>
               <p style={{color: 'var(--primary)', fontWeight: '600', marginBottom: '12px', fontSize: '14px'}}>
-                {bhajan.deity}
+                {bhajan.title_hindi}
               </p>
               <p style={{color: 'var(--text-light)', marginBottom: '20px', flex: '1', lineHeight: '1.8', fontSize: '14px'}}>
                 {bhajan.description}
               </p>
               <a href={`/bhajans/${bhajan.id}`} className="btn" style={{alignSelf: 'flex-start'}}>
-                Read {bhajan.name}
+                Read {bhajan.title_english}
               </a>
             </div>
           ))}
@@ -236,19 +229,19 @@ export default function Home() {
                 "@type": "ListItem",
                 position: 1,
                 name: "Home",
-                item: "https://vaasu.com"
+                item: "https://vaasu108.vercel.app"
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Bhajans",
-                item: "https://vaasu.com/bhajans"
+                item: "https://vaasu108.vercel.app/bhajans"
               },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: "Books",
-                item: "https://vaasu.com/books"
+                item: "https://vaasu108.vercel.app/books"
               }
             ]
           })

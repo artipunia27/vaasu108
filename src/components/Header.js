@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from 'react';
 
 export default function Header() {
-  const [searchQuery, setSearchQuery] = useState('');
   const [isHidden, setIsHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
@@ -23,13 +22,6 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      window.location.href = `/bhajans?search=${encodeURIComponent(searchQuery.trim())}`;
-    }
-  };
-
   return (
     <header className={`header ${isHidden ? 'header-hidden' : ''}`}>
       <div className="header-content">
@@ -45,7 +37,12 @@ export default function Header() {
               </linearGradient>
             </defs>
           </svg>
-          <a href="/" className="logo-text" style={{textDecoration: 'none'}}>Vaasu</a>
+          <div>
+            <a href="/" className="logo-text" style={{textDecoration: 'none'}}>Vaasu</a>
+            <div style={{fontSize: '12px', color: 'var(--text-light)', letterSpacing: '1.2px', textTransform: 'uppercase', marginTop: '2px'}}>
+              Daily Bhajans and Sacred Wisdom
+            </div>
+          </div>
         </div>
         <button
           type="button"
@@ -63,16 +60,6 @@ export default function Header() {
           <a href="/community" className="nav-link" onClick={() => setMenuOpen(false)}>Community Bhajans</a>
           <a href="/meditation" className="nav-link" onClick={() => setMenuOpen(false)}>Meditation</a>
         </nav>
-        <form className="search-bar" onSubmit={handleSearch}>
-          <input
-            type="text"
-            placeholder="Search Bhajans, Shlokas..."
-            className="search-input"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <button type="submit" className="search-btn" aria-label="Search">🔍</button>
-        </form>
       </div>
     </header>
   );

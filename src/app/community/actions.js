@@ -1,9 +1,5 @@
 "use server";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient({
-  datasourceUrl: process.env.DATABASE_URL,
-});
+import prisma from "../../lib/prisma";
 
 export async function getBhajans() {
   try {
@@ -20,12 +16,21 @@ export async function getBhajans() {
 
 export async function createBhajan(title, content, author, ownerId) {
   try {
+    const safeTitle = title?.trim();
+    const safeContent = content?.trim();
+    const safeAuthor = author?.trim();
+    const safeOwnerId = ownerId?.trim();
+
+    if (!safeTitle || !safeContent || !safeAuthor || !safeOwnerId) {
+      throw new Error("Missing bhajan details");
+    }
+
     const newBhajan = await prisma.bhajan.create({
       data: {
-        title,
-        content,
-        author,
-        ownerId
+        title: safeTitle,
+        content: safeContent,
+        author: safeAuthor,
+        ownerId: safeOwnerId
       },
       include: { comments: true }
     });
@@ -67,11 +72,19 @@ export async function deleteBhajan(id, ownerId) {
 
 export async function addComment(bhajanId, text, author, ownerId) {
   try {
+    const safeText = text?.trim();
+    const safeAuthor = author?.trim();
+    const safeOwnerId = ownerId?.trim();
+
+    if (!safeText || !safeAuthor || !safeOwnerId) {
+      throw new Error("Missing comment details");
+    }
+
     const comment = await prisma.comment.create({
       data: {
-        text,
-        author,
-        ownerId,
+        text: safeText,
+        author: safeAuthor,
+        ownerId: safeOwnerId,
         bhajanId
       }
     });

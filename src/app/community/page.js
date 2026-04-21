@@ -13,6 +13,20 @@ export default function CommunityPage() {
   const [myUserId, setMyUserId] = useState(null);
   const [openMenuId, setOpenMenuId] = useState(null);
 
+  const getOrCreateUserId = () => {
+    if (typeof window === "undefined") {
+      return null;
+    }
+
+    let storedId = localStorage.getItem("vaasu_user_id");
+    if (!storedId) {
+      storedId = `user_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
+      localStorage.setItem("vaasu_user_id", storedId);
+    }
+
+    return storedId;
+  };
+
   // Fetch bhajans from DB on load
   useEffect(() => {
     async function loadData() {
@@ -23,12 +37,7 @@ export default function CommunityPage() {
     loadData();
 
     // Setup local user ID for ownership
-    let storedId = localStorage.getItem("vaasu_user_id");
-    if (!storedId) {
-      storedId = "user_" + Math.random().toString(36).substr(2, 9);
-      localStorage.setItem("vaasu_user_id", storedId);
-    }
-    setMyUserId(storedId);
+    setMyUserId(getOrCreateUserId());
     
     // Automatically fill author name if they used it before
     const lastAuthor = localStorage.getItem("vaasu_last_author");
@@ -64,9 +73,16 @@ export default function CommunityPage() {
   const handleCreateComment = async (postId, text) => {
     if(!text.trim()) return;
     const author = newAuthor || "Guest";
+    const ownerId = myUserId || getOrCreateUserId();
+
+    if (!ownerId) {
+      alert("Please wait a moment and try again.");
+      return;
+    }
     
     try {
-      const newComment = await addComment(postId, text, author, myUserId);
+      setMyUserId(ownerId);
+      const newComment = await addComment(postId, text, author, ownerId);
       setBhajans(bhajans.map(b => b.id === postId ? {...b, comments: [...b.comments, newComment]} : b));
     } catch(e) {
       alert("Failed to add comment.");
@@ -110,12 +126,19 @@ export default function CommunityPage() {
   const handlePost = async (e) => {
     e.preventDefault();
     if (!newTitle || !newContent || !newAuthor) return;
+
+    const ownerId = myUserId || getOrCreateUserId();
+    if (!ownerId) {
+      alert("Please wait a moment and try again.");
+      return;
+    }
     
     setIsSubmitting(true);
     localStorage.setItem("vaasu_last_author", newAuthor); // Remember name
     
     try {
-      const newBhajan = await createBhajan(newTitle, newContent, newAuthor, myUserId);
+      setMyUserId(ownerId);
+      const newBhajan = await createBhajan(newTitle, newContent, newAuthor, ownerId);
       setBhajans([newBhajan, ...bhajans]);
       setNewTitle("");
       setNewContent("");
@@ -253,7 +276,7 @@ export default function CommunityPage() {
                   marginBottom: '20px',
                   borderLeft: '4px solid var(--primary-light)'
                 }}>
-                  "{post.content}"
+                  &quot;{post.content}&quot;
                 </div>
 
                 {/* Like Button Under Content */}
