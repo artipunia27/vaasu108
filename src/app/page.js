@@ -52,54 +52,48 @@ export default async function Home() {
       </section>
 
       {/* DAILY SPIRITUAL CONTENT */}
-      <section style={{marginBottom: '80px'}}>
-        <h2 style={{textAlign: 'center', marginBottom: '40px'}}>✦ Daily Spiritual Wisdom ✦</h2>
-        
-        <div className="daily-wisdom-grid">
-          <div className="card wisdom-card wisdom-card-shloka compact-card">
-            <div className="wisdom-kicker" style={{color: 'var(--primary)'}}>
-              ✦ Aaj Ka Shloka (Today's Verse) ✦
-            </div>
-            <div className="shloka-text shloka-text-compact shloka-text-tight" style={{whiteSpace: 'pre-line'}}>
-              {dailyShloka?.hindi}
-            </div>
-            <div className="shloka-meaning shloka-meaning-compact">
-              <strong>"{dailyShloka?.meaning_english}"</strong>
-              <p style={{marginTop: '10px', fontStyle: 'italic', color: '#1C1C1C'}}>
-                From {dailyShloka?.source} {dailyShloka?.chapter && `(${dailyShloka.chapter}.${dailyShloka.verse})`}
-              </p>
-            </div>
-            <a href="/bhajans" className="btn btn-small" style={{marginTop: '18px'}}>Read More Shlokas</a>
-          </div>
+      <section className="daily-reframed-section">
+        <div className="daily-reframed-head">
+          <p className="daily-reframed-kicker">Daily Practice</p>
+          <h2>✦ Daily Spiritual Wisdom ✦</h2>
+          <p className="daily-reframed-subtext">
+            One verse for reflection and one bhajan for devotion, refreshed for your daily sadhana.
+          </p>
+        </div>
 
-          <div className="card wisdom-card wisdom-card-bhajan compact-card">
-            <div className="wisdom-kicker" style={{color: 'var(--accent)'}}>
-              ✦ Bhajan Recommendation ✦
-            </div>
-            <h3 className="wisdom-title">{dailyBhajan.title_english}</h3>
-            <p className="wisdom-copy">
-              {dailyBhajan.description}
+        <div className="daily-reframed-grid">
+          <article className="daily-panel daily-panel-shloka">
+            <div className="daily-panel-chip">Aaj Ka Shloka</div>
+            <p className="daily-shloka-text" style={{ whiteSpace: 'pre-line' }}>
+              {dailyShloka?.hindi}
             </p>
-            <strong style={{display: 'block', marginBottom: '8px', color: 'var(--secondary)'}}>About this Bhajan:</strong>
-            <ul className="wisdom-list">
-              <li>Deity: {dailyBhajan.deity}</li>
-              <li>Perfect for: Daily meditation and devotion</li>
-            </ul>
+            <p className="daily-shloka-meaning">"{dailyShloka?.meaning_english}"</p>
+            <p className="daily-panel-meta">
+              {dailyShloka?.source} {dailyShloka?.chapter && `(${dailyShloka.chapter}.${dailyShloka.verse})`}
+            </p>
+            <a href="/bhajans" className="btn btn-small">Read More Shlokas</a>
+          </article>
+
+          <article className="daily-panel daily-panel-bhajan">
+            <div className="daily-panel-chip">Bhajan Recommendation</div>
+            <h3 className="daily-bhajan-title">{dailyBhajan.title_english}</h3>
+            <p className="daily-bhajan-desc">{dailyBhajan.description}</p>
+            <div className="daily-panel-meta">{dailyBhajan.deity} • {dailyBhajan.type}</div>
             <a href={`/bhajans/${dailyBhajan.id}`} className="btn btn-small">Listen & Read Full Lyrics</a>
-          </div>
+          </article>
         </div>
       </section>
 
       {/* FEATURED BHAJANS */}
       <section style={{marginBottom: '80px'}}>
         <h2 style={{textAlign: 'center', marginBottom: '12px'}}>🎵 Featured Devotional Bhajans</h2>
-        <p style={{textAlign: 'center', color: 'var(--text-light)', marginBottom: '40px', fontSize: '16px'}}>
+        <p style={{textAlign: 'center', color: 'var(--text-light)', marginBottom: '30px', fontSize: '16px'}}>
           Experience the divine through these popular spiritual hymns. Listen, learn meanings, and practice daily for spiritual growth.
         </p>
         
-        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px'}}>
+        <div className="featured-bhajan-grid">
           {featuredBhajans.map((bhajan) => (
-            <div key={bhajan.id} className="card" style={{display: 'flex', flexDirection: 'column'}}>
+            <div key={bhajan.id} className="card featured-bhajan-card" style={{display: 'flex', flexDirection: 'column'}}>
               <div style={{fontSize: '13px', color: 'var(--primary)', fontWeight: '700', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '10px'}}>
                 {bhajan.deity} • {bhajan.type}
               </div>
@@ -107,7 +101,7 @@ export default async function Home() {
               <p style={{color: 'var(--primary)', fontWeight: '600', marginBottom: '12px', fontSize: '14px'}}>
                 {bhajan.title_hindi}
               </p>
-              <p style={{color: 'var(--text-light)', marginBottom: '20px', flex: '1', lineHeight: '1.8', fontSize: '14px'}}>
+              <p className="featured-bhajan-desc" style={{color: 'var(--text-light)', marginBottom: '16px', flex: '1', lineHeight: '1.7', fontSize: '14px'}}>
                 {bhajan.description}
               </p>
               <a href={`/bhajans/${bhajan.id}`} className="btn" style={{alignSelf: 'flex-start'}}>

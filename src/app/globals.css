@@ -771,6 +771,131 @@ main {
   margin-bottom: 0;
 }
 
+.daily-reframed-section {
+  margin-bottom: 80px;
+}
+
+.daily-reframed-head {
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+.daily-reframed-kicker {
+  margin: 0 0 8px;
+  color: var(--primary-dark);
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.daily-reframed-subtext {
+  margin: 0 auto;
+  max-width: 720px;
+  color: var(--text-light);
+}
+
+.daily-reframed-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.daily-panel {
+  border-radius: 18px;
+  padding: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: #fff;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.05);
+}
+
+.daily-panel-shloka {
+  background: linear-gradient(180deg, #fffdf8 0%, #ffffff 100%);
+}
+
+.daily-panel-bhajan {
+  background: linear-gradient(180deg, #fffaf4 0%, #ffffff 100%);
+}
+
+.daily-panel-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 178, 107, 0.22);
+  color: var(--primary-dark);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.daily-shloka-text {
+  margin: 0 0 14px;
+  font-size: 22px;
+  line-height: 1.5;
+  color: var(--secondary);
+  font-weight: 600;
+}
+
+.daily-shloka-meaning {
+  margin: 0 0 12px;
+  color: var(--text-light);
+  font-style: italic;
+  line-height: 1.7;
+}
+
+.daily-bhajan-title {
+  margin: 0 0 10px;
+  color: var(--secondary);
+  font-size: 28px;
+}
+
+.daily-bhajan-desc {
+  margin: 0 0 12px;
+  color: var(--text-light);
+  line-height: 1.75;
+}
+
+.daily-panel-meta {
+  margin: 0 0 14px;
+  color: var(--primary-dark);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+}
+
+.featured-bhajan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.featured-bhajan-card {
+  margin-bottom: 0;
+  padding: 20px;
+  min-height: 280px;
+}
+
+.featured-bhajan-card h3 {
+  font-size: 20px !important;
+  line-height: 1.35;
+  margin-bottom: 6px !important;
+}
+
+.featured-bhajan-desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.featured-bhajan-card .btn {
+  padding: 10px 18px;
+  font-size: 12px;
+}
+
 .bhajan-search-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -1051,6 +1176,10 @@ main {
     grid-template-columns: 1fr;
   }
 
+  .daily-reframed-grid {
+    grid-template-columns: 1fr;
+  }
+
   .books-catalog {
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   }
@@ -1242,6 +1371,31 @@ main {
     gap: 14px;
   }
 
+  .daily-panel {
+    padding: 18px;
+  }
+
+  .daily-shloka-text {
+    font-size: 19px;
+  }
+
+  .daily-bhajan-title {
+    font-size: 24px;
+  }
+
+  .featured-bhajan-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-bhajan-card {
+    min-height: auto;
+    padding: 18px;
+  }
+
+  .featured-bhajan-desc {
+    -webkit-line-clamp: 2;
+  }
+
   .marketplace-links {
     gap: 8px;
   }
@@ -1354,6 +1508,31 @@ main {
   .daily-wisdom-grid,
   .bhajan-search-grid {
     gap: 12px;
+  }
+
+  .daily-reframed-section {
+    margin-bottom: 50px;
+  }
+
+  .daily-panel {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .daily-shloka-text {
+    font-size: 18px;
+  }
+
+  .daily-bhajan-title {
+    font-size: 22px;
+  }
+
+  .featured-bhajan-card {
+    padding: 16px;
+  }
+
+  .featured-bhajan-card h3 {
+    font-size: 18px !important;
   }
 
   .book-card-compact,

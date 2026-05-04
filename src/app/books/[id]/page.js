@@ -2,7 +2,7 @@ import { getBookById } from "../../../lib/content-store";
 import { getBookBuyLinks } from "../../../lib/book-links";
 
 export async function generateMetadata({ params }) {
-  const { id } = params;
+  const { id } = await params;
   const book = await getBookById(id);
   if (!book) return { title: 'Book Not Found | Vaasu' };
   return {
