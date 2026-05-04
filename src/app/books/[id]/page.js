@@ -1,6 +1,33 @@
 import { getBookById } from "../../../lib/content-store";
 import { getBookBuyLinks } from "../../../lib/book-links";
 
+export async function generateMetadata({ params }) {
+  const { id } = params;
+  const book = await getBookById(id);
+  if (!book) return { title: 'Book Not Found | Vaasu' };
+  return {
+    title: `${book.title} | Vaasu`,
+    description: book.description || `Buy ${book.title} by ${book.author} from trusted marketplaces.`,
+    alternates: {
+      canonical: `/books/${book.id}`,
+    },
+    openGraph: {
+      title: `${book.title} | Vaasu`,
+      description: book.description || `Buy ${book.title} by ${book.author} from trusted marketplaces.`,
+      url: `https://vaasu108.vercel.app/books/${book.id}`,
+      type: 'article',
+      images: [
+        {
+          url: `https://vaasu108.vercel.app${book.image || '/images/krishna.png'}`,
+          width: 1200,
+          height: 630,
+          alt: `${book.title} cover`,
+        },
+      ],
+    },
+  };
+}
+
 export default async function BookDetails({ params }) {
   const { id } = await params;
   const book = await getBookById(id);
@@ -15,42 +42,105 @@ export default async function BookDetails({ params }) {
     );
   }
 
+  const buyLinks = getBookBuyLinks(book);
+
   return (
-    <div style={{padding: '36px 0', maxWidth: '860px', margin: '0 auto'}}>
-      <div style={{textAlign: 'center', marginBottom: '28px'}}>
-        <h1 style={{fontSize: '34px', color: 'var(--primary)', marginBottom: '12px'}}>{book.title}</h1>
-        <h2 style={{fontSize: '18px', color: 'var(--text-light)', fontWeight: 'normal', marginTop: '0'}}>
-          Author: {book.author}
-        </h2>
-        <p style={{marginTop: '16px', maxWidth: '700px', marginLeft: 'auto', marginRight: 'auto'}}>{book.description}</p>
-      </div>
+    <div className="book-detail-shell">
+      <a href="/books" className="book-back-link">Back to all books</a>
 
-      <div className="card book-detail-card" style={{marginBottom: '20px'}}>
-        <h2 style={{marginTop: 0, marginBottom: '10px', fontSize: '26px'}}>Where to buy this book</h2>
-        <p style={{marginTop: 0, color: 'var(--text-light)', fontSize: '15px'}}>
-          Choose a marketplace below to buy the complete edition instead of reading partial content on the site.
-        </p>
-        <div className="marketplace-links">
-          {getBookBuyLinks(book).map((link) => (
-            <a
-              key={link.label}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="marketplace-link"
-            >
-              Buy on {link.label}
-            </a>
-          ))}
+      <section className="book-detail-hero">
+        <img
+          src={book.image || '/images/krishna.png'}
+          alt={`${book.title} cover`}
+          className="book-detail-cover"
+        />
+        <div className="book-detail-copy">
+          <p className="book-buy-label">Spiritual Book</p>
+          <h1 className="book-detail-title">{book.title}</h1>
+          <p className="book-detail-author">By {book.author}</p>
+          <p className="book-detail-description">{book.description}</p>
         </div>
-      </div>
+      </section>
 
-      <div className="card book-detail-card">
-        <h2 style={{marginTop: 0, fontSize: '26px'}}>Why this page exists</h2>
-        <p style={{marginBottom: 0, color: 'var(--text-light)', fontSize: '15px'}}>
-          This section is now a buying guide for spiritual books, so visitors can quickly reach marketplaces that stock the full book.
+      <section className="book-detail-purchase card book-detail-card">
+        <h2 className="book-detail-section-title">Choose where to buy</h2>
+        <div className="book-buy-links">
+          {buyLinks.map((link) => {
+            const label = String(link.label || '').toLowerCase();
+            const brand = label.includes('amazon') ? 'amazon' : label.includes('flipkart') ? 'flipkart' : 'generic';
+            return (
+              <a
+                key={link.url}
+                href={link.url}
+                target="_blank"
+                rel="sponsored nofollow noopener noreferrer"
+                className={`book-buy-link ${brand}`}
+              >
+                Buy on {link.label}
+              </a>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="card book-detail-card">
+        <h2 className="book-detail-section-title">About this guide</h2>
+        <p className="book-detail-note">
+          This page helps visitors quickly compare trusted stores and purchase complete editions.
         </p>
-      </div>
+      </section>
+
+      {/* Book JSON-LD / Product schema for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Book",
+            name: book.title,
+            author: book.author,
+            description: book.description || '',
+            url: `https://vaasu108.vercel.app/books/${book.id}`,
+            image: `https://vaasu108.vercel.app${book.image || '/images/krishna.png'}`,
+            offers: buyLinks.map((l) => ({
+              "@type": "Offer",
+              url: l.url,
+              seller: { "@type": "Organization", name: l.label },
+              availability: "https://schema.org/InStock"
+            }))
+          })
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://vaasu108.vercel.app"
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Books",
+                item: "https://vaasu108.vercel.app/books"
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: book.title,
+                item: `https://vaasu108.vercel.app/books/${book.id}`
+              }
+            ]
+          })
+        }}
+      />
     </div>
   );
 }

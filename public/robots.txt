@@ -1,9 +1,14 @@
 # *
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /admin-ramanju-portal
+Disallow: /admin-ramanju-portal/*
 
 # Host
 Host: https://vaasu108.vercel.app/
 
 # Sitemaps
 Sitemap: https://vaasu108.vercel.app/sitemap.xml
+Sitemap: https://vaasu108.vercel.app/api/sitemap

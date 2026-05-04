@@ -1,5 +1,10 @@
 import { getBhajansContent } from "../../lib/content-store";
 
+export const metadata = {
+  title: 'Bhajans | Vaasu',
+  description: 'Search devotional Bhajans by deity, Hindi or English title. Read lyrics and meanings for daily spiritual practice.',
+};
+
 export default async function BhajansSearch({ searchParams }) {
   const params = await searchParams;
   const godFilter = (params?.god || "").trim();

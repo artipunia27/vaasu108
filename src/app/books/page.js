@@ -2,76 +2,106 @@ import { getBooksContent } from "../../lib/content-store";
 import { getBookBuyLinks } from "../../lib/book-links";
 
 export const metadata = {
-  title: 'Spiritual Books | Vaasu',
-  description: 'Find and buy trusted spiritual books and editions. Quick links to Amazon, Flipkart and other marketplaces.',
+  title: "Buy Spiritual Books Online | Vaasu",
+  description:
+    "Discover popular spiritual books and purchase from trusted stores like Amazon and Flipkart.",
+  alternates: {
+    canonical: "/books",
+  },
+  openGraph: {
+    title: "Buy Spiritual Books Online | Vaasu",
+    description:
+      "Browse Bhagavad Gita, Ramayana and other spiritual books with direct buying links.",
+    url: "https://vaasu108.vercel.app/books",
+    type: "website",
+    images: [
+      {
+        url: "https://vaasu108.vercel.app/images/krishna.png",
+        width: 1200,
+        height: 630,
+        alt: "Vaasu spiritual books",
+      },
+    ],
+  },
 };
 
 export default async function BooksPage() {
   const booksData = await getBooksContent();
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Spiritual Books Buying Guide",
+    itemListElement: booksData.map((book, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: book.title,
+      url: `https://vaasu108.vercel.app/books/${book.id}`,
+    })),
+  };
 
   return (
-    <div style={{padding: '36px 0 20px'}}>
-      <div style={{textAlign: 'center', marginBottom: '32px'}}>
-        <div style={{color: 'var(--primary)', fontSize: '13px', fontWeight: '700', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '10px'}}>
-          Buy Sacred Books
-        </div>
-        <h1 style={{textAlign: 'center', marginBottom: '12px'}}>Find and Buy Spiritual Books</h1>
-        <p style={{textAlign: 'center', color: 'var(--text-light)', marginBottom: '0'}}>
-          Browse spiritual books and jump straight to trusted purchase links.
+    <div className="books-page-shell">
+      <section className="books-hero-band">
+        <p className="books-hero-kicker">Trusted Marketplace Picks</p>
+        <h1 className="books-hero-title">Buy Spiritual Books With Confidence</h1>
+        <p className="books-hero-subtitle">
+          A clean buying guide for popular spiritual books. Compare sellers and purchase from trusted stores.
         </p>
-      </div>
+      </section>
 
-      <div className="books-catalog">
+      <section className="books-buy-grid" aria-label="Spiritual books buying options">
         {booksData.map((book) => (
-          <div key={book.id} className="card book-card-compact">
-            <div className="book-card-grid">
-              <img src={book.image || '/book-default.png'} alt={book.title} className="book-cover" />
-              <div className="book-card-header">
-                <div style={{fontSize: '12px', color: 'var(--primary)', fontWeight: '700', letterSpacing: '1.4px', textTransform: 'uppercase', marginBottom: '8px'}}>
-                  Purchase Options
-                </div>
-                <h2 style={{marginTop: 0, marginBottom: '8px', fontSize: '20px'}}>{book.title}</h2>
-                <p style={{color: 'var(--text-light)', marginBottom: '10px', fontSize: '14px', maxHeight: '72px', overflow: 'hidden', textOverflow: 'ellipsis'}}>
-                  {book.description}
-                </p>
-                <p style={{marginBottom: 0, color: 'var(--secondary)', fontWeight: '600', fontSize: '13px'}}>
-                  {book.author}
-                </p>
+          <article key={book.id} className="book-buy-card">
+            <div className="book-buy-top">
+              <img
+                src={book.image || "/images/krishna.png"}
+                alt={`${book.title} cover`}
+                className="book-buy-cover"
+                loading="lazy"
+              />
+              <div className="book-buy-copy">
+                <p className="book-buy-label">Spiritual Book</p>
+                <h2 className="book-buy-title">{book.title}</h2>
+                <p className="book-buy-author">By {book.author}</p>
+                <p className="book-buy-description">{book.description}</p>
               </div>
             </div>
 
-            <div className="book-links-panel">
-              <div style={{fontWeight: '700', marginBottom: '10px', color: 'var(--primary)'}}>
-                Quick buy links
-              </div>
-              <div className="marketplace-links">
-                {getBookBuyLinks(book).map((link) => {
-                  const label = String(link.label || '').toLowerCase();
-                  const brand = label.includes('amazon') ? 'amazon' : label.includes('flipkart') ? 'flipkart' : 'generic';
-                  return (
-                    <a
-                      key={link.url}
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`marketplace-link ${brand}`}
-                    >
-                      {link.label}
-                    </a>
-                  );
-                })}
-              </div>
+            <div className="book-buy-links">
+              {getBookBuyLinks(book).map((link) => {
+                const label = String(link.label || "").toLowerCase();
+                const brand = label.includes("amazon")
+                  ? "amazon"
+                  : label.includes("flipkart")
+                  ? "flipkart"
+                  : "generic";
+                return (
+                  <a
+                    key={`${book.id}-${link.label}`}
+                    href={link.url}
+                    target="_blank"
+                    rel="sponsored nofollow noopener noreferrer"
+                    className={`book-buy-link ${brand}`}
+                  >
+                    Buy on {link.label}
+                  </a>
+                );
+              })}
             </div>
 
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px'}}>
-              <a href={`/books/${book.id}`} className="btn btn-small" style={{alignSelf: 'flex-start'}}>
-                View options
+            <div className="book-buy-footer">
+              <a href={`/books/${book.id}`} className="book-buy-details-link">
+                See all details
               </a>
-              <div style={{color: 'var(--text-light)', fontSize: '13px', fontWeight: 600}}>{book.pages ? `${book.pages} pages` : ''}</div>
             </div>
-          </div>
+          </article>
         ))}
-      </div>
+      </section>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
     </div>
   );
 }

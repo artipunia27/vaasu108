@@ -46,6 +46,9 @@ export const metadata = {
   
   // URL base used for generating absolute metadata URLs
   metadataBase: new URL('https://vaasu108.vercel.app'),
+  alternates: {
+    canonical: '/',
+  },
 
   // Open Graph (Social Media)
   openGraph: {
@@ -57,7 +60,7 @@ export const metadata = {
     description: 'Discover sacred Bhajans, meaningful Shlokas, Mantras, and spiritual wisdom. Your gateway to daily spiritual growth.',
     images: [
       {
-        url: 'https://vaasu108.vercel.app/og-image.png',
+        url: 'https://vaasu108.vercel.app/images/krishna.png',
         width: 1200,
         height: 630,
         alt: 'Vaasu - Spiritual Content Platform',
@@ -72,7 +75,7 @@ export const metadata = {
     creator: '@vaasu_spiritual',
     title: 'Vaasu | Daily Bhajans & Shlokas',
     description: 'Discover sacred devotional content and spiritual wisdom',
-    images: ['https://vaasu108.vercel.app/twitter-image.png'],
+    images: ['https://vaasu108.vercel.app/images/krishna.png'],
   },
 
   // Additional Meta Tags
