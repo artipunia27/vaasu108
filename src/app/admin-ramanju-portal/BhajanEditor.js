@@ -54,7 +54,6 @@ export default function BhajanEditor({ action, initialBhajan }) {
   const [titleHindi, setTitleHindi] = useState(initialBhajan?.titleHindi || "");
   const [deity, setDeity] = useState(initialBhajan?.deity || "");
   const [type, setType] = useState(initialBhajan?.type || "Bhajan");
-  const [description, setDescription] = useState(initialBhajan?.description || "");
   const [lyricsHindi, setLyricsHindi] = useState((initialBhajan?.lyricsHindi || []).join("\n"));
   const [lyricsEnglish, setLyricsEnglish] = useState((initialBhajan?.lyricsEnglish || []).join("\n"));
 
@@ -88,14 +87,6 @@ export default function BhajanEditor({ action, initialBhajan }) {
           />
           <input name="deity" placeholder="Deity" value={deity} onChange={(event) => setDeity(event.target.value)} required />
           <input name="type" placeholder="Type (Bhajan/Aarti/Chalisa)" value={type} onChange={(event) => setType(event.target.value)} />
-          <textarea
-            name="description"
-            placeholder="Description"
-            rows={3}
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
-            required
-          />
           <textarea
             name="lyricsHindi"
             placeholder="Hindi lyrics (one line per row)"

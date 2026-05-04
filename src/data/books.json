@@ -4,6 +4,20 @@
     "title": "Shiva Purana",
     "author": "Ancient Sage Tradition",
     "description": "A sacred text centered on Lord Shiva, his cosmic dance, forms, and blessings for devotees.",
+    "purchase_links": [
+      {
+        "label": "Amazon",
+        "url": "https://www.amazon.in/s?k=Shiva+Purana+Ancient+Sage+Tradition"
+      },
+      {
+        "label": "Flipkart",
+        "url": "https://www.flipkart.com/search?q=Shiva%20Purana%20Ancient%20Sage%20Tradition"
+      },
+      {
+        "label": "Google Books",
+        "url": "https://books.google.com/books?q=Shiva+Purana+Ancient+Sage+Tradition"
+      }
+    ],
     "chapters": [
       {
         "chapter_number": 1,
@@ -24,6 +38,20 @@
     "title": "Sri Ramayana",
     "author": "Maharishi Valmiki",
     "description": "The great epic of Lord Rama, Sita, Lakshman, and Hanuman, teaching dharma, courage, and devotion.",
+    "purchase_links": [
+      {
+        "label": "Amazon",
+        "url": "https://www.amazon.in/s?k=Sri+Ramayana+Maharishi+Valmiki"
+      },
+      {
+        "label": "Flipkart",
+        "url": "https://www.flipkart.com/search?q=Sri%20Ramayana%20Maharishi%20Valmiki"
+      },
+      {
+        "label": "Google Books",
+        "url": "https://books.google.com/books?q=Sri+Ramayana+Maharishi+Valmiki"
+      }
+    ],
     "chapters": [
       {
         "chapter_number": 1,
@@ -44,6 +72,20 @@
     "title": "Shrimad Bhagavad Gita",
     "author": "Veda Vyasa",
     "description": "The divine song of God, imparted by Lord Krishna to Arjuna on the battlefield of Kurukshetra.",
+    "purchase_links": [
+      {
+        "label": "Amazon",
+        "url": "https://www.amazon.in/s?k=Shrimad+Bhagavad+Gita+Veda+Vyasa"
+      },
+      {
+        "label": "Flipkart",
+        "url": "https://www.flipkart.com/search?q=Shrimad%20Bhagavad%20Gita%20Veda%20Vyasa"
+      },
+      {
+        "label": "Google Books",
+        "url": "https://books.google.com/books?q=Shrimad+Bhagavad+Gita+Veda+Vyasa"
+      }
+    ],
     "chapters": [
       {
         "chapter_number": 1,

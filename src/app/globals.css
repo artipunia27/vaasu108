@@ -383,6 +383,155 @@ main {
   align-items: center;
 }
 
+.books-catalog {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+.book-card-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 26px;
+  margin-bottom: 0;
+}
+
+.book-card-header h2 {
+  line-height: 1.2;
+}
+
+.book-links-panel {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 178, 107, 0.22);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.marketplace-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.marketplace-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(106, 27, 154, 0.08);
+  border: 1px solid rgba(106, 27, 154, 0.16);
+  color: var(--secondary);
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+.marketplace-link:hover {
+  text-decoration: none;
+  background: rgba(255, 107, 53, 0.1);
+  color: var(--primary);
+  box-shadow: 0 8px 22px rgba(106, 27, 154, 0.12);
+  transform: translateY(-1px);
+}
+
+.book-detail-card {
+  padding: 28px;
+}
+
+.wisdom-card {
+  gap: 14px;
+}
+
+.compact-card {
+  padding: 26px;
+  margin-bottom: 0;
+}
+
+.wisdom-card-shloka {
+  background: linear-gradient(135deg, #FFFAF0 0%, #FFE8CC 100%);
+  border: 2px solid var(--primary);
+}
+
+.wisdom-card-bhajan {
+  background: linear-gradient(135deg, #FFFAF0 0%, #FFF7C2 100%);
+  border: 2px solid var(--accent);
+}
+
+.wisdom-kicker {
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.wisdom-title {
+  font-size: 26px;
+  margin-bottom: 10px;
+  color: var(--primary);
+}
+
+.wisdom-copy {
+  color: var(--text-light);
+  margin-bottom: 6px;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.wisdom-list {
+  margin-left: 18px;
+  margin-bottom: 0;
+  line-height: 1.7;
+}
+
+.shloka-text-compact {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.shloka-text-tight {
+  line-height: 1.5;
+}
+
+.shloka-meaning-compact {
+  margin-top: 12px;
+  padding-left: 16px;
+}
+
+.btn-small {
+  padding: 12px 24px;
+  font-size: 14px;
+}
+
+.daily-wisdom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+.daily-wisdom-grid .card {
+  margin-bottom: 0;
+}
+
+.bhajan-search-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+.bhajan-search-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 20px;
+  margin-bottom: 0;
+  min-height: 152px;
+}
+
 .books-copy h3 {
   font-size: 32px;
   margin-bottom: 18px;
@@ -461,9 +610,9 @@ main {
 /* Daily Section Grid */
 .daily-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 32px;
-  margin-bottom: 60px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 54px;
   align-items: stretch;
 }
 
@@ -643,6 +792,15 @@ main {
     grid-template-columns: 1fr;
   }
 
+  .daily-wisdom-grid,
+  .bhajan-search-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .books-catalog {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
   h1 {
     font-size: 42px;
   }
@@ -661,6 +819,16 @@ main {
 
   .card {
     padding: 24px;
+  }
+
+  .book-card-compact,
+  .book-detail-card {
+    padding: 22px;
+  }
+
+  .compact-card,
+  .bhajan-search-card {
+    padding: 20px;
   }
 }
 
@@ -749,6 +917,22 @@ main {
     gap: 20px;
   }
 
+  .books-catalog {
+    gap: 18px;
+  }
+
+  .daily-wisdom-grid {
+    gap: 14px;
+  }
+
+  .marketplace-links {
+    gap: 8px;
+  }
+
+  .marketplace-link {
+    width: 100%;
+  }
+
   h1 { font-size: 28px; }
   h2 { font-size: 22px; margin-top: 24px; }
   h3 { font-size: 20px; }
@@ -784,6 +968,24 @@ main {
   h1 { font-size: 26px; }
   h2 { font-size: 21px; }
   h3 { font-size: 19px; }
+
+  .book-card-compact,
+  .book-detail-card {
+    padding: 18px;
+  }
+
+  .compact-card,
+  .bhajan-search-card {
+    padding: 18px;
+  }
+
+  .wisdom-title {
+    font-size: 22px;
+  }
+
+  .shloka-text-compact {
+    font-size: 20px;
+  }
 
 }
 
@@ -830,6 +1032,29 @@ main {
 
   .daily-section {
     gap: 12px;
+  }
+
+  .daily-wisdom-grid,
+  .bhajan-search-grid {
+    gap: 12px;
+  }
+
+  .book-card-compact,
+  .book-detail-card {
+    padding: 16px;
+  }
+
+  .compact-card,
+  .bhajan-search-card {
+    padding: 16px;
+  }
+
+  .book-links-panel {
+    padding: 14px;
+  }
+
+  .marketplace-link {
+    width: 100%;
   }
 
   h1 { font-size: 22px; }

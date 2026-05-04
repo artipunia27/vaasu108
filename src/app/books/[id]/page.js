@@ -1,4 +1,5 @@
 import { getBookById } from "../../../lib/content-store";
+import { getBookBuyLinks } from "../../../lib/book-links";
 
 export default async function BookDetails({ params }) {
   const { id } = await params;
@@ -15,29 +16,40 @@ export default async function BookDetails({ params }) {
   }
 
   return (
-    <div style={{padding: '40px 0', maxWidth: '800px', margin: '0 auto'}}>
-      <div style={{textAlign: 'center', marginBottom: '40px'}}>
-        <h1 style={{fontSize: '36px', color: 'var(--primary)'}}>{book.title}</h1>
-        <h2 style={{fontSize: '20px', color: 'var(--text-light)', fontWeight: 'normal', marginTop: '10px'}}>
+    <div style={{padding: '36px 0', maxWidth: '860px', margin: '0 auto'}}>
+      <div style={{textAlign: 'center', marginBottom: '28px'}}>
+        <h1 style={{fontSize: '34px', color: 'var(--primary)', marginBottom: '12px'}}>{book.title}</h1>
+        <h2 style={{fontSize: '18px', color: 'var(--text-light)', fontWeight: 'normal', marginTop: '0'}}>
           Author: {book.author}
         </h2>
-        <p style={{marginTop: '20px'}}>{book.description}</p>
+        <p style={{marginTop: '16px', maxWidth: '700px', marginLeft: 'auto', marginRight: 'auto'}}>{book.description}</p>
       </div>
 
-      <h2 style={{borderBottom: '2px solid var(--primary-light)', paddingBottom: '10px', marginBottom: '20px'}}>
-        Chapters
-      </h2>
-      
-      <div style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
-        {book.chapters.map(chapter => (
-          <div key={chapter.chapter_number} className="card" style={{display: 'flex', flexWrap: 'wrap', gap: '15px', justifyContent: 'space-between', alignItems: 'center'}}>
-            <div>
-              <h3>Chapter {chapter.chapter_number}: {chapter.title}</h3>
-              <p style={{color: 'var(--text-light)'}}>{chapter.description} • {chapter.verses} Verses</p>
-            </div>
-            <a href="#" className="btn">Read</a>
-          </div>
-        ))}
+      <div className="card book-detail-card" style={{marginBottom: '20px'}}>
+        <h2 style={{marginTop: 0, marginBottom: '10px', fontSize: '26px'}}>Where to buy this book</h2>
+        <p style={{marginTop: 0, color: 'var(--text-light)', fontSize: '15px'}}>
+          Choose a marketplace below to buy the complete edition instead of reading partial content on the site.
+        </p>
+        <div className="marketplace-links">
+          {getBookBuyLinks(book).map((link) => (
+            <a
+              key={link.label}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="marketplace-link"
+            >
+              Buy on {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div className="card book-detail-card">
+        <h2 style={{marginTop: 0, fontSize: '26px'}}>Why this page exists</h2>
+        <p style={{marginBottom: 0, color: 'var(--text-light)', fontSize: '15px'}}>
+          This section is now a buying guide for spiritual books, so visitors can quickly reach marketplaces that stock the full book.
+        </p>
       </div>
     </div>
   );

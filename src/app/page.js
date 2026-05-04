@@ -32,7 +32,6 @@ export default async function Home() {
 
   const dailyShloka = pickDailyItem(shlokasData, 0);
   const dailyBhajan = pickDailyItem(bhajansData, 5);
-  const dailyBook = pickDailyItem(booksData, 2);
   const featuredBhajans = bhajansData;
 
   return (
@@ -56,82 +55,37 @@ export default async function Home() {
       <section style={{marginBottom: '80px'}}>
         <h2 style={{textAlign: 'center', marginBottom: '40px'}}>✦ Daily Spiritual Wisdom ✦</h2>
         
-        <div className="daily-section">
-          {/* Daily Shloka Card */}
-          <div className="card" style={{background: 'linear-gradient(135deg, #FFFAF0 0%, #FFE8CC 100%)', border: '3px solid var(--primary)'}}>
-            <div style={{color: 'var(--primary)', marginBottom: '20px', fontSize: '14px', textTransform: 'uppercase', fontWeight: '700', letterSpacing: '2px'}}>
+        <div className="daily-wisdom-grid">
+          <div className="card wisdom-card wisdom-card-shloka compact-card">
+            <div className="wisdom-kicker" style={{color: 'var(--primary)'}}>
               ✦ Aaj Ka Shloka (Today's Verse) ✦
             </div>
-            <div className="shloka-text" style={{whiteSpace: 'pre-line'}}>
+            <div className="shloka-text shloka-text-compact shloka-text-tight" style={{whiteSpace: 'pre-line'}}>
               {dailyShloka?.hindi}
             </div>
-            <div className="shloka-meaning">
+            <div className="shloka-meaning shloka-meaning-compact">
               <strong>"{dailyShloka?.meaning_english}"</strong>
-              <p style={{marginTop: '12px', fontStyle: 'italic', color: '#1C1C1C'}}>
+              <p style={{marginTop: '10px', fontStyle: 'italic', color: '#1C1C1C'}}>
                 From {dailyShloka?.source} {dailyShloka?.chapter && `(${dailyShloka.chapter}.${dailyShloka.verse})`}
               </p>
             </div>
-            <a href="/bhajans" className="btn" style={{marginTop: '20px'}}>Read More Shlokas</a>
+            <a href="/bhajans" className="btn btn-small" style={{marginTop: '18px'}}>Read More Shlokas</a>
           </div>
 
-          {/* Daily Bhajan Card */}
-          <div className="card" style={{background: 'linear-gradient(135deg, #FFFAF0 0%, #FFF7C2 100%)', border: '3px solid var(--accent)'}}>
-            <div style={{color: 'var(--accent)', marginBottom: '20px', fontSize: '14px', textTransform: 'uppercase', fontWeight: '700', letterSpacing: '2px'}}>
+          <div className="card wisdom-card wisdom-card-bhajan compact-card">
+            <div className="wisdom-kicker" style={{color: 'var(--accent)'}}>
               ✦ Bhajan Recommendation ✦
             </div>
-            <h3 style={{fontSize: '32px', marginBottom: '12px', color: 'var(--primary)'}}>{dailyBhajan.title_english}</h3>
-            <p style={{color: 'var(--text-light)', marginBottom: '20px', fontSize: '16px', lineHeight: '1.8'}}>
+            <h3 className="wisdom-title">{dailyBhajan.title_english}</h3>
+            <p className="wisdom-copy">
               {dailyBhajan.description}
             </p>
             <strong style={{display: 'block', marginBottom: '8px', color: 'var(--secondary)'}}>About this Bhajan:</strong>
-            <ul style={{marginLeft: '20px', marginBottom: '20px', lineHeight: '1.8'}}>
+            <ul className="wisdom-list">
               <li>Deity: {dailyBhajan.deity}</li>
               <li>Perfect for: Daily meditation and devotion</li>
             </ul>
-            <a href={`/bhajans/${dailyBhajan.id}`} className="btn">Listen & Read Full Lyrics</a>
-          </div>
-
-          {/* Daily Spiritual Book Card */}
-          <div className="card" style={{background: 'linear-gradient(135deg, #FFF9F2 0%, #FDF2E3 100%)', border: '3px solid var(--primary-light)'}}>
-            <div style={{color: 'var(--primary)', marginBottom: '20px', fontSize: '14px', textTransform: 'uppercase', fontWeight: '700', letterSpacing: '2px'}}>
-              ✦ Daily Sacred Book ✦
-            </div>
-            <h3 style={{fontSize: '32px', marginBottom: '12px', color: 'var(--secondary)'}}>{dailyBook?.title}</h3>
-            <p style={{color: 'var(--text-light)', marginBottom: '20px', fontSize: '16px', lineHeight: '1.8'}}>
-              {dailyBook?.description}
-            </p>
-            <strong style={{display: 'block', marginBottom: '8px', color: 'var(--secondary)'}}>Book snapshot:</strong>
-            <ul style={{marginLeft: '20px', marginBottom: '20px', lineHeight: '1.8'}}>
-              <li>Author: {dailyBook?.author}</li>
-              <li>Chapters available: {dailyBook?.chapters?.length ?? 0}</li>
-            </ul>
-            <a href={`/books/${dailyBook?.id}`} className="btn btn-secondary">Explore Today's Book</a>
-          </div>
-        </div>
-      </section>
-
-      {/* SPIRITUAL BOOKS SECTION */}
-      <section style={{marginBottom: '80px'}}>
-        <h2 style={{textAlign: 'center', marginBottom: '40px'}}>📚 Sacred Spiritual Books</h2>
-        
-        <div className="card book-section-grid">
-          <div className="books-copy">
-            <h3>{dailyBook?.title}</h3>
-            <p>
-              {dailyBook?.description}
-            </p>
-            <p>
-              <strong>Author:</strong> {dailyBook?.author}
-            </p>
-            <p>
-              <strong>Chapters:</strong> {dailyBook?.chapters?.length ?? 0} sacred chapters available for study.
-            </p>
-            <a href="/books" className="btn">Explore Full Library</a>
-          </div>
-          <div className="books-highlight">
-            <h4>{dailyBook?.chapters?.length ?? 0} Chapters</h4>
-            <p>{dailyBook?.chapters?.reduce((total, chapter) => total + chapter.verses, 0) ?? 0} Verses</p>
-            <p><em>"Read a little each day. Let scripture shape the mind before the world does."</em></p>
+            <a href={`/bhajans/${dailyBhajan.id}`} className="btn btn-small">Listen & Read Full Lyrics</a>
           </div>
         </div>
       </section>
@@ -159,27 +113,6 @@ export default async function Home() {
               <a href={`/bhajans/${bhajan.id}`} className="btn" style={{alignSelf: 'flex-start'}}>
                 Read {bhajan.title_english}
               </a>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* UPCOMING FESTIVALS */}
-      <section style={{marginBottom: '80px'}}>
-        <h2 style={{textAlign: 'center', marginBottom: '40px'}}>🪔 Upcoming Festivals</h2>
-        
-        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px'}}>
-          {[
-            {name: 'Krishna Janmashtami', date: 'August 26, 2026', desc: 'Celebration of Lord Krishna\'s birth', emoji: '🪔'},
-            {name: 'Diwali', date: 'October 29, 2026', desc: 'Festival of lights and victory of good over evil', emoji: '🪔'},
-            {name: 'Holi', date: 'March 14, 2026', desc: 'Festival of colors celebrating spring', emoji: '🎨'},
-            {name: 'Ram Navami', date: 'April 6, 2026', desc: 'Celebration of Lord Rama\'s birth', emoji: '🏹'}
-          ].map((festival, index) => (
-            <div key={index} className="card" style={{textAlign: 'center'}}>
-              <div style={{fontSize: '48px', marginBottom: '16px'}}>{festival.emoji}</div>
-              <h3 style={{marginBottom: '8px'}}>{festival.name}</h3>
-              <p style={{color: 'var(--primary)', fontWeight: '600', marginBottom: '12px'}}>{festival.date}</p>
-              <p style={{color: 'var(--text-light)', lineHeight: '1.6'}}>{festival.desc}</p>
             </div>
           ))}
         </div>

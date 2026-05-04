@@ -15,7 +15,10 @@ function mergeById(primaryItems, fallbackItems) {
   });
 
   primaryItems.forEach((item) => {
-    map.set(item.id, item);
+    map.set(item.id, {
+      ...(map.get(item.id) ?? {}),
+      ...item,
+    });
   });
 
   return Array.from(map.values());

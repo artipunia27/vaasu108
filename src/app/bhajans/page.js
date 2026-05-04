@@ -18,19 +18,24 @@ export default async function BhajansSearch({ searchParams }) {
 
   return (
     <div style={{ padding: '40px 0', minHeight: '60vh' }}>
-      <h1 style={{ textAlign: 'center', marginBottom: '30px', color: 'var(--primary)' }}>Search Bhajans</h1>
+      <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+        <h1 style={{ marginBottom: '12px', color: 'var(--primary)' }}>Search Bhajans</h1>
+        <p style={{ color: 'var(--text-light)', marginBottom: 0 }}>
+          Search by deity, Hindi title, or English title.
+        </p>
+      </div>
 
-      <form method="GET" style={{ maxWidth: '600px', margin: '0 auto 40px', textAlign: 'center' }}>
+      <form method="GET" style={{ maxWidth: '560px', margin: '0 auto 28px', textAlign: 'center' }}>
         <input
           name="search"
           type="text"
           placeholder="Search by name, god, or hindi title..."
           defaultValue={query}
           style={{
-            padding: '16px',
+            padding: '14px 18px',
             width: '100%',
-            fontSize: '18px',
-            borderRadius: '30px',
+            fontSize: '16px',
+            borderRadius: '22px',
             border: '2px solid var(--primary-light)',
             outline: 'none',
             fontFamily: 'inherit'
@@ -38,13 +43,13 @@ export default async function BhajansSearch({ searchParams }) {
         />
       </form>
 
-      <div className="daily-section">
+      <div className="bhajan-search-grid">
         {results.length > 0 ? results.map((bhajan) => (
           <a key={bhajan.id} href={`/bhajans/${bhajan.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <div className="card" style={{ cursor: 'pointer' }}>
-              <div style={{ fontSize: '14px', color: 'var(--primary)', fontWeight: 'bold' }}>{bhajan.deity} • {bhajan.type}</div>
-              <h3 style={{ margin: '10px 0', fontSize: '24px' }}>{bhajan.title_english} ({bhajan.title_hindi})</h3>
-              <p style={{ color: 'var(--text-light)', marginBottom: '20px' }}>{bhajan.description}</p>
+            <div className="card bhajan-search-card" style={{ cursor: 'pointer' }}>
+              <div style={{ fontSize: '12px', color: 'var(--primary)', fontWeight: '700', letterSpacing: '1.2px', textTransform: 'uppercase' }}>{bhajan.deity} • {bhajan.type}</div>
+              <h3 style={{ margin: '8px 0 8px', fontSize: '19px', lineHeight: '1.35' }}>{bhajan.title_english}</h3>
+              <p style={{ color: 'var(--primary)', fontWeight: '600', marginBottom: '0', fontSize: '14px', lineHeight: '1.5' }}>{bhajan.title_hindi}</p>
             </div>
           </a>
         )) : (

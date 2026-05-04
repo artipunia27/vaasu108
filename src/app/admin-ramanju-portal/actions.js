@@ -82,11 +82,14 @@ export async function createSpiritualBhajan(formData) {
     const titleHindi = String(formData.get("titleHindi") || "").trim();
     const deity = String(formData.get("deity") || "").trim();
     const type = String(formData.get("type") || "Bhajan").trim();
-    const description = String(formData.get("description") || "").trim();
+    const existingBhajan = existingId
+      ? await prisma.spiritualBhajan.findUnique({ where: { id: existingId } })
+      : null;
+    const description = String(formData.get("description") || "").trim() || existingBhajan?.description || `${titleEnglish} devotional bhajan`;
     const lyricsHindi = getLines(formData.get("lyricsHindi"));
     const lyricsEnglish = getLines(formData.get("lyricsEnglish"));
 
-    if (!titleEnglish || !titleHindi || !deity || !description) {
+    if (!titleEnglish || !titleHindi || !deity) {
       throw new Error("Please fill all required bhajan fields.");
     }
 

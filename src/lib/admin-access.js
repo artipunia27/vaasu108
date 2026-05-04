@@ -1,12 +1,28 @@
 import { headers } from "next/headers";
 
-const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "::1"]);
+const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "0.0.0.0", "::1", "::ffff:127.0.0.1"]);
 
 function normalizeHost(value) {
-  return String(value || "")
-    .trim()
-    .toLowerCase()
-    .split(":")[0];
+  const raw = String(value || "").trim().toLowerCase();
+
+  if (!raw) {
+    return "";
+  }
+
+  const forwardedHost = raw.split(",")[0].trim();
+
+  if (forwardedHost.startsWith("[") && forwardedHost.includes("]")) {
+    return forwardedHost.slice(1, forwardedHost.indexOf("]"));
+  }
+
+  const firstColon = forwardedHost.indexOf(":");
+  const lastColon = forwardedHost.lastIndexOf(":");
+
+  if (firstColon !== -1 && firstColon === lastColon) {
+    return forwardedHost.slice(0, firstColon);
+  }
+
+  return forwardedHost;
 }
 
 function parseAllowedHosts(raw) {
