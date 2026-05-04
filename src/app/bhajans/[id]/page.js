@@ -154,7 +154,9 @@ export default async function BhajanDetails({ params }) {
       </div>
 
       <LyricsSection heading="Hindi Lyrics" lines={bhajan.lyrics_hindi} lineColor="#25150F" badgeColor="#A43F24" />
-      <LyricsSection heading="English Lyrics" lines={bhajan.lyrics_english} lineColor="#2E2117" badgeColor="#6A1B9A" />
+      {(bhajan.lyrics_english || []).some((line) => String(line || "").trim()) ? (
+        <LyricsSection heading="English Lyrics" lines={bhajan.lyrics_english} lineColor="#2E2117" badgeColor="#6A1B9A" />
+      ) : null}
     </div>
   );
 }

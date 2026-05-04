@@ -64,7 +64,7 @@ export default function BhajanEditor({ action, initialBhajan }) {
     <div className="card" style={{ marginBottom: "26px" }}>
       <h2 style={{ marginTop: 0 }}>Bhajan Composer</h2>
       <p style={{ color: "var(--text-light)", marginTop: 0 }}>
-        Add your own lyrics and we auto-generate structured content for the bhajan page. Submit only original, licensed, or public-domain text.
+        Paste your lyrics, and the system auto-structures lines/stanzas into a common format for consistent display.
       </p>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "18px", alignItems: "start" }}>
@@ -87,14 +87,10 @@ export default function BhajanEditor({ action, initialBhajan }) {
           />
           <input name="deity" placeholder="Deity" value={deity} onChange={(event) => setDeity(event.target.value)} required />
           <input name="type" placeholder="Type (Bhajan/Aarti/Chalisa)" value={type} onChange={(event) => setType(event.target.value)} />
-          <input
-            name="sourceNote"
-            placeholder="Source note (Traditional / Public Domain / Original Composition)"
-            required
-          />
+          <input name="sourceNote" type="hidden" value="Contributor-submitted source" />
           <textarea
             name="lyricsHindi"
-            placeholder="Hindi lyrics (one line per row)"
+            placeholder="Paste lyrics text here (line by line). Numbering/bullets are auto-cleaned."
             rows={8}
             value={lyricsHindi}
             onChange={(event) => setLyricsHindi(event.target.value)}
@@ -111,7 +107,7 @@ export default function BhajanEditor({ action, initialBhajan }) {
           {showHindiFullText ? <FullTextView title="Hindi Full Lyrics" lines={hindiLines} /> : null}
           <textarea
             name="lyricsEnglish"
-            placeholder="English lyrics (one line per row)"
+            placeholder="Optional: English lyrics (line by line)"
             rows={8}
             value={lyricsEnglish}
             onChange={(event) => setLyricsEnglish(event.target.value)}

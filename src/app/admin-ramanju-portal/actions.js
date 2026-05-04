@@ -46,6 +46,51 @@ function getLines(value) {
   return normalized;
 }
 
+function normalizeLyricsLines(value) {
+  const rawLines = String(value || "")
+    .replace(/\r\n?/g, "\n")
+    .split("\n");
+
+  const normalized = rawLines.map((line) => {
+    const trimmed = String(line || "").trim();
+    if (!trimmed) return "";
+
+    // Remove common numbering/bullet prefixes from pasted text.
+    const withoutPrefixes = trimmed.replace(/^([0-9]+[\.)]|[-*•])\s+/, "");
+    return withoutPrefixes.replace(/\s+/g, " ");
+  });
+
+  const compact = [];
+  let previousBlank = true;
+  for (const line of normalized) {
+    const isBlank = line === "";
+    if (isBlank && previousBlank) continue;
+    compact.push(line);
+    previousBlank = isBlank;
+  }
+
+  while (compact.length > 0 && compact[0] === "") compact.shift();
+  while (compact.length > 0 && compact[compact.length - 1] === "") compact.pop();
+  return compact;
+}
+
+function assertLyricsSafety(lines) {
+  const text = (lines || []).join(" ").toLowerCase();
+  const riskyPatterns = [
+    "all rights reserved",
+    "copyright",
+    "lyrics licensed",
+    "from movie",
+    "from film",
+    "official soundtrack",
+  ];
+
+  const hit = riskyPatterns.find((token) => text.includes(token));
+  if (hit) {
+    throw new Error("Potential copyright-risk content detected. Please submit only original, licensed, or public-domain lyrics.");
+  }
+}
+
 function escapeForSentence(value) {
   return String(value || "")
     .replace(/[\r\n]+/g, " ")
@@ -108,21 +153,20 @@ export async function createSpiritualBhajan(formData) {
     const titleHindi = String(formData.get("titleHindi") || "").trim();
     const deity = String(formData.get("deity") || "").trim();
     const type = String(formData.get("type") || "Bhajan").trim();
-    const sourceNote = String(formData.get("sourceNote") || "").trim();
+    const sourceNote = String(formData.get("sourceNote") || "").trim() || "Contributor-submitted source";
     const rightsConfirmed = String(formData.get("rightsConfirmed") || "") === "on";
     const existingBhajan = existingId
       ? await prisma.spiritualBhajan.findUnique({ where: { id: existingId } })
       : null;
-    const lyricsHindi = getLines(formData.get("lyricsHindi"));
-    const lyricsEnglish = getLines(formData.get("lyricsEnglish"));
+    const lyricsHindi = normalizeLyricsLines(formData.get("lyricsHindi"));
+    const lyricsEnglish = normalizeLyricsLines(formData.get("lyricsEnglish"));
 
     if (!rightsConfirmed) {
       throw new Error("Please confirm that you have rights or public-domain permission for this bhajan content.");
     }
 
-    if (!sourceNote) {
-      throw new Error("Please provide a source note (for example: traditional, public domain, or your original composition). ");
-    }
+    assertLyricsSafety(lyricsHindi);
+    assertLyricsSafety(lyricsEnglish);
 
     const description = buildStructuredBhajanDescription({
       titleEnglish,
