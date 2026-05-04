@@ -1,6 +1,11 @@
 import { getBooksContent } from "../../lib/content-store";
 import { getBookBuyLinks } from "../../lib/book-links";
 
+export const metadata = {
+  title: 'Spiritual Books | Vaasu',
+  description: 'Find and buy trusted spiritual books and editions. Quick links to Amazon, Flipkart and other marketplaces.',
+};
+
 export default async function BooksPage() {
   const booksData = await getBooksContent();
 
@@ -19,17 +24,20 @@ export default async function BooksPage() {
       <div className="books-catalog">
         {booksData.map((book) => (
           <div key={book.id} className="card book-card-compact">
-            <div className="book-card-header">
-              <div style={{fontSize: '12px', color: 'var(--primary)', fontWeight: '700', letterSpacing: '1.4px', textTransform: 'uppercase', marginBottom: '10px'}}>
-                Purchase Options
+            <div className="book-card-grid">
+              <img src={book.image || '/book-default.png'} alt={book.title} className="book-cover" />
+              <div className="book-card-header">
+                <div style={{fontSize: '12px', color: 'var(--primary)', fontWeight: '700', letterSpacing: '1.4px', textTransform: 'uppercase', marginBottom: '8px'}}>
+                  Purchase Options
+                </div>
+                <h2 style={{marginTop: 0, marginBottom: '8px', fontSize: '20px'}}>{book.title}</h2>
+                <p style={{color: 'var(--text-light)', marginBottom: '10px', fontSize: '14px', maxHeight: '72px', overflow: 'hidden', textOverflow: 'ellipsis'}}>
+                  {book.description}
+                </p>
+                <p style={{marginBottom: 0, color: 'var(--secondary)', fontWeight: '600', fontSize: '13px'}}>
+                  {book.author}
+                </p>
               </div>
-              <h2 style={{marginTop: 0, marginBottom: '10px', fontSize: '28px'}}>{book.title}</h2>
-              <p style={{color: 'var(--text-light)', marginBottom: '12px', fontSize: '15px'}}>
-                {book.description}
-              </p>
-              <p style={{marginBottom: 0, color: 'var(--secondary)', fontWeight: '600', fontSize: '14px'}}>
-                Author: {book.author}
-              </p>
             </div>
 
             <div className="book-links-panel">
@@ -37,23 +45,30 @@ export default async function BooksPage() {
                 Quick buy links
               </div>
               <div className="marketplace-links">
-                {getBookBuyLinks(book).map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="marketplace-link"
-                  >
-                    {link.label}
-                  </a>
-                ))}
+                {getBookBuyLinks(book).map((link) => {
+                  const label = String(link.label || '').toLowerCase();
+                  const brand = label.includes('amazon') ? 'amazon' : label.includes('flipkart') ? 'flipkart' : 'generic';
+                  return (
+                    <a
+                      key={link.url}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`marketplace-link ${brand}`}
+                    >
+                      {link.label}
+                    </a>
+                  );
+                })}
               </div>
             </div>
 
-            <a href={`/books/${book.id}`} className="btn btn-small" style={{alignSelf: 'flex-start'}}>
-              View all buying options
-            </a>
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px'}}>
+              <a href={`/books/${book.id}`} className="btn btn-small" style={{alignSelf: 'flex-start'}}>
+                View options
+              </a>
+              <div style={{color: 'var(--text-light)', fontSize: '13px', fontWeight: 600}}>{book.pages ? `${book.pages} pages` : ''}</div>
+            </div>
           </div>
         ))}
       </div>
