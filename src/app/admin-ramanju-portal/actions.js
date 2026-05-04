@@ -46,6 +46,32 @@ function getLines(value) {
   return normalized;
 }
 
+function escapeForSentence(value) {
+  return String(value || "")
+    .replace(/[\r\n]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getFirstMeaningfulLine(lines) {
+  return (lines || []).map((line) => String(line || "").trim()).find(Boolean) || "";
+}
+
+function buildStructuredBhajanDescription({ titleEnglish, deity, type, lyricsHindi, lyricsEnglish, sourceNote }) {
+  const firstHindi = getFirstMeaningfulLine(lyricsHindi);
+  const firstEnglish = getFirstMeaningfulLine(lyricsEnglish);
+  const excerpt = escapeForSentence(firstHindi || firstEnglish || "Devotional lyrics provided by contributor.");
+  const safeSource = escapeForSentence(sourceNote || "Contributor-submitted / public-domain source");
+
+  return [
+    `Overview: ${titleEnglish} is a ${type.toLowerCase()} dedicated to ${deity}.`,
+    `Key Theme: Devotion, surrender, and inner spiritual reflection through daily chanting.`,
+    `Opening Line: ${excerpt}.`,
+    `Practice Guidance: Recite mindfully with correct pronunciation and intention.`,
+    `Source Note: ${safeSource}. Content submitted by admin with usage rights confirmation.`,
+  ].join(" ");
+}
+
 function getChapterLines(value) {
   const lines = getLines(value);
   return lines.map((line, index) => {
@@ -82,12 +108,30 @@ export async function createSpiritualBhajan(formData) {
     const titleHindi = String(formData.get("titleHindi") || "").trim();
     const deity = String(formData.get("deity") || "").trim();
     const type = String(formData.get("type") || "Bhajan").trim();
+    const sourceNote = String(formData.get("sourceNote") || "").trim();
+    const rightsConfirmed = String(formData.get("rightsConfirmed") || "") === "on";
     const existingBhajan = existingId
       ? await prisma.spiritualBhajan.findUnique({ where: { id: existingId } })
       : null;
-    const description = String(formData.get("description") || "").trim() || existingBhajan?.description || `${titleEnglish} devotional bhajan`;
     const lyricsHindi = getLines(formData.get("lyricsHindi"));
     const lyricsEnglish = getLines(formData.get("lyricsEnglish"));
+
+    if (!rightsConfirmed) {
+      throw new Error("Please confirm that you have rights or public-domain permission for this bhajan content.");
+    }
+
+    if (!sourceNote) {
+      throw new Error("Please provide a source note (for example: traditional, public domain, or your original composition). ");
+    }
+
+    const description = buildStructuredBhajanDescription({
+      titleEnglish,
+      deity,
+      type,
+      lyricsHindi,
+      lyricsEnglish,
+      sourceNote,
+    }) || existingBhajan?.description || `${titleEnglish} devotional bhajan`;
 
     if (!titleEnglish || !titleHindi || !deity) {
       throw new Error("Please fill all required bhajan fields.");
@@ -124,6 +168,20 @@ export async function createSpiritualBhajan(formData) {
   } catch (error) {
     unstable_rethrow(error);
     withStatusRedirect("error", error.message || "Failed to save bhajan.");
+  }
+}
+
+export async function deleteAllSpiritualBhajans(formData) {
+  try {
+    await assertAdminRequestAllowed();
+    assertAdminToken(formData);
+
+    const result = await prisma.spiritualBhajan.deleteMany({});
+    revalidateContentPaths();
+    withStatusRedirect("success", `Deleted ${result.count} bhajans from database.`);
+  } catch (error) {
+    unstable_rethrow(error);
+    withStatusRedirect("error", error.message || "Failed to delete all bhajans.");
   }
 }
 

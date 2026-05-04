@@ -64,7 +64,7 @@ export default function BhajanEditor({ action, initialBhajan }) {
     <div className="card" style={{ marginBottom: "26px" }}>
       <h2 style={{ marginTop: 0 }}>Bhajan Composer</h2>
       <p style={{ color: "var(--text-light)", marginTop: 0 }}>
-        Edit the bhajan and open the full Hindi or English lyrics in a formatted view before saving.
+        Add your own lyrics and we auto-generate structured content for the bhajan page. Submit only original, licensed, or public-domain text.
       </p>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "18px", alignItems: "start" }}>
@@ -87,12 +87,18 @@ export default function BhajanEditor({ action, initialBhajan }) {
           />
           <input name="deity" placeholder="Deity" value={deity} onChange={(event) => setDeity(event.target.value)} required />
           <input name="type" placeholder="Type (Bhajan/Aarti/Chalisa)" value={type} onChange={(event) => setType(event.target.value)} />
+          <input
+            name="sourceNote"
+            placeholder="Source note (Traditional / Public Domain / Original Composition)"
+            required
+          />
           <textarea
             name="lyricsHindi"
             placeholder="Hindi lyrics (one line per row)"
             rows={8}
             value={lyricsHindi}
             onChange={(event) => setLyricsHindi(event.target.value)}
+            required
           />
           <button
             type="button"
@@ -119,6 +125,10 @@ export default function BhajanEditor({ action, initialBhajan }) {
             {showEnglishFullText ? "Hide English Full Text" : "View English Full Text"}
           </button>
           {showEnglishFullText ? <FullTextView title="English Full Lyrics" lines={englishLines} /> : null}
+          <label style={{ display: "flex", alignItems: "flex-start", gap: "8px", fontSize: "14px", color: "var(--text-light)" }}>
+            <input name="rightsConfirmed" type="checkbox" required style={{ marginTop: "3px" }} />
+            I confirm I have rights to publish this content (original, licensed, or public-domain).
+          </label>
           <button type="submit" className="btn" style={{ width: "fit-content" }}>
             Save Bhajan
           </button>

@@ -76,10 +76,22 @@ export default async function Home() {
 
           <article className="daily-panel daily-panel-bhajan">
             <div className="daily-panel-chip">Bhajan Recommendation</div>
-            <h3 className="daily-bhajan-title">{dailyBhajan.title_english}</h3>
-            <p className="daily-bhajan-desc">{dailyBhajan.description}</p>
-            <div className="daily-panel-meta">{dailyBhajan.deity} • {dailyBhajan.type}</div>
-            <a href={`/bhajans/${dailyBhajan.id}`} className="btn btn-small">Listen & Read Full Lyrics</a>
+            {dailyBhajan ? (
+              <>
+                <h3 className="daily-bhajan-title">{dailyBhajan.title_english}</h3>
+                <p className="daily-bhajan-desc">{dailyBhajan.description}</p>
+                <div className="daily-panel-meta">{dailyBhajan.deity} • {dailyBhajan.type}</div>
+                <a href={`/bhajans/${dailyBhajan.id}`} className="btn btn-small">Listen & Read Full Lyrics</a>
+              </>
+            ) : (
+              <>
+                <h3 className="daily-bhajan-title">Fresh Bhajans Coming Soon</h3>
+                <p className="daily-bhajan-desc">
+                  Add your own verified lyrics from the admin panel to publish safe, original devotional content.
+                </p>
+                <a href="/bhajans" className="btn btn-small">Open Bhajans</a>
+              </>
+            )}
           </article>
         </div>
       </section>
@@ -92,7 +104,7 @@ export default async function Home() {
         </p>
         
         <div className="featured-bhajan-grid">
-          {featuredBhajans.map((bhajan) => (
+          {featuredBhajans.length > 0 ? featuredBhajans.map((bhajan) => (
             <div key={bhajan.id} className="card featured-bhajan-card" style={{display: 'flex', flexDirection: 'column'}}>
               <div style={{fontSize: '13px', color: 'var(--primary)', fontWeight: '700', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '10px'}}>
                 {bhajan.deity} • {bhajan.type}
@@ -108,7 +120,14 @@ export default async function Home() {
                 Read {bhajan.title_english}
               </a>
             </div>
-          ))}
+          )) : (
+            <div className="card" style={{ textAlign: "center", gridColumn: "1 / -1" }}>
+              <h3 style={{ marginBottom: "10px" }}>No Bhajans Published Yet</h3>
+              <p style={{ color: "var(--text-light)", marginBottom: "0" }}>
+                Publish new verified bhajans from the admin panel and they will appear here automatically.
+              </p>
+            </div>
+          )}
         </div>
       </section>
 

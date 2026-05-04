@@ -7,6 +7,7 @@ import {
   createSpiritualBhajan,
   createSpiritualBook,
   createSpiritualShloka,
+  deleteAllSpiritualBhajans,
   deleteSpiritualBhajan,
   deleteSpiritualBook,
   deleteSpiritualShloka,
@@ -90,6 +91,17 @@ export default async function AdminContentPage({ searchParams }) {
       </div>
 
       <BhajanEditor action={createSpiritualBhajan} initialBhajan={selectedBhajan} />
+
+      <div className="card" style={{ marginBottom: "26px", border: "2px solid #C62828", background: "#FFF5F5" }}>
+        <h2 style={{ marginTop: 0, color: "#8E0000" }}>Delete All Existing Bhajans</h2>
+        <p style={{ color: "#6b1b1b", marginTop: 0 }}>
+          Use this once to remove all current bhajans from the database if you want to avoid copyright risk and start fresh.
+        </p>
+        <form action={deleteAllSpiritualBhajans} style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+          <input name="adminToken" type="password" placeholder="Admin token" required />
+          <button type="submit" className="btn btn-secondary">Delete All Bhajans</button>
+        </form>
+      </div>
 
       <div className="card" style={{ marginBottom: "26px" }}>
         <h2 style={{ marginTop: 0 }}>Add Or Update Spiritual Book</h2>
